@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const runeText = "ᚦᚺᛖ ᚲᚺᛟᛊᛖᚾ ᛟᚾᛖ ᚹᛁᛚᛚ ᚱᛖᛗᛖᛗᛒᛖᚱ, ᚨᚾᛞ ᛊᛟ ᛞᛟ ᚹᛖ.";
   const englishText = "The chosen one will remember, and so do we.";
 
-  const delay = 75; // ms between each flip
+  const delay = 125; // Increased delay between each character flip
 
   function splitAndWrap(text) {
     return text.split("").map((char, i) => {
@@ -35,5 +35,5 @@ document.addEventListener("DOMContentLoaded", () => {
       animateFlip(englishText, runeText);
     }
     showingRunes = !showingRunes;
-  }, 7000);
+  }, 15000); // Slowed flip every 15 seconds
 });
