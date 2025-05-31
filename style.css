@@ -1,0 +1,109 @@
+/* ===================================================================
+   RESET SOME DEFAULTS
+   =================================================================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  background-color: #000; /* pitch black background for cinematic vibe */
+  font-family: 'Georgia', serif; /* elegant serif for mystic tone */
+  color: #E6E1C6; /* off-white / parchment tone */
+  overflow-x: hidden;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ===================================================================
+   PAGE CONTAINER
+   =================================================================== */
+.page-container {
+  text-align: center;
+  padding: 20px;
+}
+
+/* ===================================================================
+   WATCHER SIGIL WRAPPER
+   =================================================================== */
+/* This wrapper centers the sigil and sets a fixed size. */
+.watcher-sigil-wrapper {
+  position: relative;
+  width: 300px;   /* You can adjust this to your image’s width */
+  height: 300px;  /* Same as above, keep square to maintain aspect ratio */
+  margin: 0 auto;
+  /* OPTIONAL: A faint glow behind the sigil */
+  box-shadow: 0 0 40px rgba(0, 255, 120, 0.15);
+}
+
+/* Sigil base = static background image */
+.sigil-base {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  z-index: 1;
+}
+
+/* Sigil eye = layer that will blink / move */
+.sigil-eye {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  z-index: 2;
+  transform-origin: center center;
+  animation: blink 8s infinite ease-in-out;
+}
+
+/* ===================================================================
+   BLINK KEYFRAMES
+   =================================================================== */
+/* 
+   - The eye “scales” in Y-direction to simulate a quick blink.
+   - At 0%, 95%, and 100% it is fully open (scaleY(1)).
+   - Around 96-98% it squashes down to scaleY(0.05) then back up.
+   - Total cycle = 8 seconds (blink ~every 8s). Modify duration to taste.
+*/
+@keyframes blink {
+  0%, 95%, 100% {
+    transform: scaleY(1);
+  }
+  96%, 98% {
+    transform: scaleY(0.05);
+  }
+}
+
+/* ===================================================================
+   PAGE TITLE (beneath the sigil)
+   =================================================================== */
+.page-title {
+  margin-top: 30px;
+  font-size: 2rem;
+  letter-spacing: 1px;
+  text-shadow: 0 0 10px rgba(0, 255, 120, 0.2);
+}
+
+/* ===================================================================
+   RESPONSIVENESS
+   =================================================================== */
+@media (max-width: 600px) {
+  .watcher-sigil-wrapper {
+    width: 70vw;   /* scale based on viewport width */
+    height: 70vw;
+  }
+  .page-title {
+    font-size: 1.5rem;
+  }
+}
