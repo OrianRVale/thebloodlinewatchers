@@ -2,32 +2,24 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>The Bloodline Watchers</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="background-overlay"></div>
 
-  <header>
-    <img src="sigil.png" alt="The Bloodline Watchers Sigil" class="sigil-logo" />
-    <h1 class="glow-title">The Bloodline Watchers</h1>
-  </header>
-
-  <main>
-    <div class="countdown-container">
-      <p class="subtext">Chapter One unlocks on <strong>August 13, 2025 — 8:13 PM</strong></p>
-      <div id="countdown"></div>
+  <main class="content">
+    <img src="sigil.png" alt="Bloodline Watchers Sigil" class="sigil" />
+    <h1 class="main-title">The Bloodline Watchers</h1>
+    <div id="runes-container">
+      <p class="rune-text" id="runeText">ᚦᛁᛋ᛫ᛁᛋ᛫ᚨ᛫ᚱᛖᛗᛖᛗᛒᛖᚱ᛫ᚨᚾᛞ᛫ᛋᛟᛞᛟ᛫ᚹᛖ</p>
     </div>
-
-    <div class="reveal-section">
-      <p id="runeReveal" class="rune-flip">ᛏᚺᛖ ᚲᚺᛟᛊᛖᚾ ᛟᚾᛖ ᚹᛁᛚᛚ ᚱᛖᛗᛖᛗᛒᛖᚱ — ᚨᚾᛞ ᛊᛟ ᛞᛟ ᚹᛖ</p>
-    </div>
+    <div id="countdown"></div>
+    <footer>
+      <p>© 2025 The Bloodline Watchers. All rights reserved.</p>
+    </footer>
   </main>
-
-  <footer>
-    <p>© 2025 Orion R. Vale — All Rights Reserved</p>
-  </footer>
 
   <script src="runes.js"></script>
   <script src="countdown.js"></script>
