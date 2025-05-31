@@ -1,58 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>The Bloodline Watchers</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
-  <script defer src="runes.js"></script>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div id="background-glyphs"></div>
+  <div class="background-overlay"></div>
 
-  <div class="container">
-    <img id="sigil" src="sigil.png" alt="Watcher Sigil">
-    <h1 class="title glow">The Bloodline Watchers</h1>
+  <header>
+    <img src="sigil.png" alt="The Bloodline Watchers Sigil" class="sigil-logo" />
+    <h1 class="glow-title">The Bloodline Watchers</h1>
+  </header>
 
-    <p id="countdown"></p>
+  <main>
+    <div class="countdown-container">
+      <p class="subtext">Chapter One unlocks on <strong>August 13, 2025 — 8:13 PM</strong></p>
+      <div id="countdown"></div>
+    </div>
 
-    <p class="tagline">A mythic portal for prophecy, whispers, and the return of the elemental flamebearers.</p>
-    
-    <div id="rune-bar"></div>
-  </div>
+    <div class="reveal-section">
+      <p id="runeReveal" class="rune-flip">ᛏᚺᛖ ᚲᚺᛟᛊᛖᚾ ᛟᚾᛖ ᚹᛁᛚᛚ ᚱᛖᛗᛖᛗᛒᛖᚱ — ᚨᚾᛞ ᛊᛟ ᛞᛟ ᚹᛖ</p>
+    </div>
+  </main>
 
-  <audio autoplay loop hidden>
-    <source src="ambient_whispers.mp3" type="audio/mpeg">
-  </audio>
+  <footer>
+    <p>© 2025 Orion R. Vale — All Rights Reserved</p>
+  </footer>
 
-  <script>
-    const countdown = document.getElementById("countdown");
-    const releaseDate = new Date("August 13, 2025 20:13:00").getTime();
-
-    function updateCountdown() {
-      const now = new Date().getTime();
-      const distance = releaseDate - now;
-
-      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-      countdown.innerHTML = `⏳ ${days} days, ${hours} hours, ${minutes} minutes, ${seconds} seconds until the first flame is revealed`;
-
-      // Reveal Chapter 1 title teaser every 10 days
-      const chapterTeaser = document.getElementById("chapter");
-      if (days <= 10 && !chapterTeaser) {
-        const chapter = document.createElement("h2");
-        chapter.id = "chapter";
-        chapter.innerHTML = "Chapter One: <em>The Awakening</em>";
-        document.querySelector(".container").insertBefore(chapter, countdown);
-      }
-    }
-
-    updateCountdown();
-    setInterval(updateCountdown, 1000);
-  </script>
+  <script src="runes.js"></script>
+  <script src="countdown.js"></script>
 </body>
 </html>
