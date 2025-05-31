@@ -1,4 +1,4 @@
-/* style.css - Cleaned and Aligned */
+/* Clean and precise layout for all screen sizes */
 
 body {
   margin: 0;
@@ -13,10 +13,10 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   text-align: center;
-  padding: 2rem 1rem;
+  padding: 3rem 1rem 2rem;
   position: relative;
   background: radial-gradient(ellipse at center, #1a1a1a 0%, #000000 100%);
 }
@@ -28,53 +28,49 @@ body {
   width: 100%;
   height: 100%;
   background: url('background-symbols.png') center center / cover no-repeat;
-  opacity: 0.08;
+  opacity: 0.05;
   z-index: 0;
   pointer-events: none;
 }
 
-/* Logo & Sigil */
 #sigil {
-  max-width: 300px;
+  max-width: 280px;
   width: 90%;
-  margin: 1.5rem auto 1rem;
+  margin-bottom: 2rem;
   z-index: 2;
 }
 
 h1 {
-  font-size: 2.8rem;
+  font-size: 2.5rem;
   color: #ffffe6;
-  margin: 0.5rem 0;
+  margin: 0.5rem 0 0.75rem;
   z-index: 2;
-  animation: pulseGlow 6s infinite;
+  animation: pulseGlow 8s infinite;
 }
 
 h2 {
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   font-style: italic;
   color: #ccc;
-  margin-top: 0.3rem;
+  margin: 0.5rem 0 1rem;
   z-index: 2;
 }
 
-/* Countdown */
 .countdown {
   font-size: 1rem;
-  color: #ccc;
-  margin-top: 1rem;
+  color: #bbb;
+  margin-bottom: 1.25rem;
   z-index: 2;
 }
 
-/* Description text */
 .description {
   font-size: 1rem;
-  color: #d9d9d9;
-  margin: 1rem auto 1.5rem;
+  color: #ddd;
   max-width: 90%;
+  margin-bottom: 2rem;
   z-index: 2;
 }
 
-/* Runes Bar */
 .runes {
   font-size: 1.2rem;
   color: #ffffcc;
@@ -84,7 +80,7 @@ h2 {
   text-shadow: 0 0 6px #ffffcc;
 }
 
-/* Glowing animation for main title */
+/* Glowing animation */
 @keyframes pulseGlow {
   0%, 100% {
     text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
@@ -94,7 +90,7 @@ h2 {
   }
 }
 
-/* Mobile */
+/* Mobile-friendly adjustments */
 @media screen and (max-width: 768px) {
   h1 {
     font-size: 2rem;
