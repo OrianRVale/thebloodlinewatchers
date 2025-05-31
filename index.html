@@ -1,32 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>The Bloodline Watchers</title>
-  <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="runes.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="runes.css">
 </head>
 <body>
-  <div id="background-symbols"></div>
+  <img id="background-symbols" src="background-symbols.png" alt="Background Symbols">
+  <img id="logo" src="logo.jpeg" alt="Watcher Sigil">
 
-  <img id="logo" src="sigil.png" alt="Watcher Sigil" />
+  <h1 class="title">The Bloodline Watchers</h1>
+  <h2 class="subtitle">Chapter One: <em>The Awakening.</em></h2>
 
-  <h1 class="glow">The Bloodline Watchers</h1>
-  <h2><span class="chapter-label">Chapter One:</span> <em>The Awakening</em></h2>
-
-  <div id="countdown" class="countdown-timer">
-    ⏳ <span id="timer"></span> until the first flame is revealed
+  <div class="countdown">
+    <span id="countdown-timer">Loading countdown...</span>
   </div>
 
-  <p class="tagline">
-    A mythic, visual landing page for prophecy, whispers, and the return of the elemental flamebearers.
-  </p>
+  <div id="runes" class="rune-container"></div>
 
-  <div id="runes" class="rune-flip">ᚦᛁᛖᚲᚺᛟᛋᛖᚾ ᛟᚾᛖ ᚹᛁᛚᛚ ᚱᛖᛗᛖᛗᛒᛖᚱ · ᚨᚾᛞ ᛋᛟ ᛞᛟ ᚹᛖ</div>
+  <div class="tagline">A mythic, visual landing page for prophecy, whispers, and the return of the elemental flamebearers.</div>
 
   <audio autoplay loop>
-    <source src="ambient_whispers.mp3" type="audio/mpeg" />
+    <source src="ambient_whispers.mp3" type="audio/mp3">
   </audio>
 
   <script src="runes.js"></script>
