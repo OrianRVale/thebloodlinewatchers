@@ -1,31 +1,54 @@
-const runes = [
-  "ᚠ", "ᚢ", "ᚦ", "ᚨ", "ᚱ", "ᚲ", "ᚷ", "ᚹ", "ᚺ", "ᚾ", "ᛁ", "ᛃ",
-  "ᛇ", "ᛈ", "ᛉ", "ᛋ", "ᛏ", "ᛒ", "ᛖ", "ᛗ", "ᛚ", "ᛜ", "ᛞ", "ᛟ"
-];
+const runesText = "ᚦᚺᚲᛖᛋᛖᚾ ᚹᛁᛚᛚ ᚱᛖᛗᛖᛗᛒᛖᚱ, ᚨᚾᛞ ᛋᛟ ᛞᛟ ᚹᛖ.";
+const englishText = "The chosen one will remember, and so do we.";
+let flipIndex = 0;
+let showingRunes = true;
 
-const message = "The chosen one will remember, and so do we.";
-const messageRunes = message.split("").map((char, i) => ({
-  char,
-  rune: runes[i % runes.length]
-}));
+const runeElement = document.getElementById("runeline");
+const subtitleElement = document.getElementById("chapter-subtitle");
 
-const runesEl = document.getElementById("runes");
-runesEl.innerHTML = messageRunes.map(m => `<span>${m.rune}</span>`).join("");
+function flipRune() {
+  const current = showingRunes ? runesText : englishText;
+  const next = showingRunes ? englishText : runesText;
 
-let revealIndex = 0;
-const interval = 300;
+  const flipped = next.slice(0, flipIndex + 1) + current.slice(flipIndex + 1);
+  runeElement.textContent = flipped;
 
-function animateRunes() {
-  const spans = runesEl.querySelectorAll("span");
-  if (revealIndex < spans.length) {
-    spans[revealIndex].textContent = messageRunes[revealIndex].char;
-    revealIndex++;
-  } else {
-    revealIndex = 0;
-    spans.forEach((span, i) => {
-      span.textContent = messageRunes[i].rune;
-    });
+  flipIndex++;
+
+  if (flipIndex >= current.length) {
+    showingRunes = !showingRunes;
+    flipIndex = 0;
   }
 }
 
-setInterval(animateRunes, interval);
+// Slow eerie flips every 4 seconds
+setInterval(flipRune, 4000);
+
+// Countdown to first flame (August 13, 2025, 8:13 PM Central)
+const launchTime = new Date("2025-08-13T20:13:00-05:00").getTime();
+const countdownElement = document.getElementById("countdown");
+
+function updateCountdown() {
+  const now = new Date().getTime();
+  const distance = launchTime - now;
+
+  if (distance < 0) {
+    countdownElement.textContent = "🔥 The flame has been revealed.";
+    return;
+  }
+
+  const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+  countdownElement.textContent = `⏳ ${days} days, ${hours} hours, ${minutes} minutes, ${seconds} seconds until the first flame is revealed`;
+
+  // Show Chapter One subtitle if 10 days or less
+  if (days <= 10) {
+    subtitleElement.classList.remove("hidden");
+  }
+}
+
+updateCountdown();
+setInterval(updateCountdown, 1000);
