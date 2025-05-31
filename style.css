@@ -1,115 +1,86 @@
-/* Reset and base styles */
-body, html {
+/* style.css */
+
+body {
   margin: 0;
   padding: 0;
-  font-family: 'Cinzel', serif;
-  background: #000;
+  background-color: #000;
   color: #fff;
-  height: 100%;
+  font-family: 'Cinzel', serif;
+  text-align: center;
   overflow-x: hidden;
 }
 
-/* Background overlay for subtle shimmer */
-.background-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: url('glyph_bg.gif') center center / cover no-repeat;
-  opacity: 0.05;
-  z-index: 0;
-  animation: shimmer 30s infinite linear;
+img.sigil {
+  max-width: 90vw;
+  height: auto;
+  margin: 2rem auto;
+  display: block;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
 }
 
-/* Sigil logo */
-.sigil-logo {
-  max-width: 300px;
-  margin-top: 30px;
-  margin-bottom: -30px;
-  filter: drop-shadow(0 0 5px white);
-  z-index: 1;
-  position: relative;
-}
-
-/* Glowing Title */
-.glow-title {
-  font-size: 3.5rem;
-  text-align: center;
-  color: #fff;
-  text-shadow: 0 0 8px rgba(255,255,255,0.6), 0 0 16px rgba(255,255,255,0.4);
-  animation: pulseGlow 4s ease-in-out infinite alternate;
-  z-index: 2;
-  position: relative;
-}
-
-/* Countdown */
-.countdown-container {
-  text-align: center;
-  margin-top: 40px;
-}
-
-.subtext {
-  font-size: 1.2rem;
-  margin-bottom: 10px;
-  color: #ccc;
-}
-
-#countdown {
+h1.title {
   font-size: 2rem;
-  letter-spacing: 2px;
+  text-shadow: 0 0 8px #fff;
+  margin-bottom: 1rem;
 }
 
-/* Reveal Runes */
-.rune-flip {
-  margin-top: 60px;
-  text-align: center;
-  font-size: 1.4rem;
-  font-weight: bold;
-  color: #ccc;
-  font-family: 'Courier New', monospace;
-  animation: runePulse 10s infinite alternate;
+.launch-date {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
 }
 
-/* Footer */
+.countdown {
+  margin-top: 1rem;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.rune-strip {
+  font-size: 1.2rem;
+  margin: 2rem auto;
+  opacity: 0.8;
+  animation: pulse 4s infinite ease-in-out;
+}
+
 footer {
-  text-align: center;
-  font-size: 0.9rem;
-  margin-top: 60px;
-  color: #666;
+  margin-top: 3rem;
+  font-size: 0.8rem;
+  color: #aaa;
 }
 
-/* Animations */
-@keyframes shimmer {
-  0% { background-position: center top; }
-  100% { background-position: center bottom; }
+@keyframes pulse {
+  0%, 100% { opacity: 0.8; }
+  50% { opacity: 1; }
 }
 
-@keyframes pulseGlow {
-  0% { text-shadow: 0 0 8px rgba(255,255,255,0.4); }
-  100% { text-shadow: 0 0 16px rgba(255,255,255,0.9); }
-}
-
-@keyframes runePulse {
-  0% { color: #999; }
-  100% { color: #fff; }
-}
-
-/* Responsive Adjustments */
-@media only screen and (max-width: 768px) {
-  .glow-title {
-    font-size: 2.2rem;
+/* Mobile Styles */
+@media (max-width: 768px) {
+  img.sigil {
+    max-width: 80vw;
+    margin: 1rem auto;
   }
 
-  .sigil-logo {
-    max-width: 200px;
+  h1.title {
+    font-size: 1.5rem;
+    padding: 0 1rem;
   }
 
-  #countdown {
-    font-size: 1.4rem;
-  }
-
-  .rune-flip {
+  .launch-date {
     font-size: 1rem;
+  }
+
+  .rune-strip {
+    font-size: 1rem;
+    padding: 0 1rem;
+  }
+
+  .countdown {
+    font-size: 0.9rem;
+  }
+
+  footer {
+    padding: 0 1rem;
+    font-size: 0.7rem;
   }
 }
