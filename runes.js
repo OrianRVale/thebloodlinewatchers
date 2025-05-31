@@ -1,55 +1,31 @@
 const runes = [
-  'ᚠ', 'ᚢ', 'ᚦ', 'ᚨ', 'ᚱ', 'ᚲ', 'ᚷ', 'ᚹ',
-  'ᚺ', 'ᚾ', 'ᛁ', 'ᛃ', 'ᛇ', 'ᛈ', 'ᛉ', 'ᛋ',
-  'ᛏ', 'ᛒ', 'ᛖ', 'ᛗ', 'ᛚ', 'ᛝ', 'ᛟ', 'ᛞ'
+  "ᚠ", "ᚢ", "ᚦ", "ᚨ", "ᚱ", "ᚲ", "ᚷ", "ᚹ", "ᚺ", "ᚾ", "ᛁ", "ᛃ",
+  "ᛇ", "ᛈ", "ᛉ", "ᛋ", "ᛏ", "ᛒ", "ᛖ", "ᛗ", "ᛚ", "ᛜ", "ᛞ", "ᛟ"
 ];
 
-const message = "THE CHOSEN ONE WILL REMEMBER, AND SO DO WE.";
-const runeContainer = document.getElementById("runeRow");
+const message = "The chosen one will remember, and so do we.";
+const messageRunes = message.split("").map((char, i) => ({
+  char,
+  rune: runes[i % runes.length]
+}));
 
-function createRuneChar(initial, index) {
-  const span = document.createElement("span");
-  span.className = "rune-char";
-  span.setAttribute("data-index", index);
-  span.setAttribute("data-target", initial);
-  span.textContent = getRandomRune();
-  runeContainer.appendChild(span);
-}
+const runesEl = document.getElementById("runes");
+runesEl.innerHTML = messageRunes.map(m => `<span>${m.rune}</span>`).join("");
 
-function getRandomRune() {
-  return runes[Math.floor(Math.random() * runes.length)];
-}
-
-function flipRuneChar(span, target) {
-  const interval = setInterval(() => {
-    span.textContent = getRandomRune();
-  }, 100);
-
-  setTimeout(() => {
-    clearInterval(interval);
-    span.textContent = target;
-    setTimeout(() => {
-      span.textContent = getRandomRune();
-    }, 5000); // stays in English before flipping back
-  }, 2000); // runes flip rapidly for 2 seconds before showing English
-}
+let revealIndex = 0;
+const interval = 300;
 
 function animateRunes() {
-  const spans = document.querySelectorAll(".rune-char");
-  spans.forEach((span, index) => {
-    setTimeout(() => {
-      const target = span.getAttribute("data-target");
-      flipRuneChar(span, target);
-    }, index * 3000); // delay each character 3 seconds apart
-  });
+  const spans = runesEl.querySelectorAll("span");
+  if (revealIndex < spans.length) {
+    spans[revealIndex].textContent = messageRunes[revealIndex].char;
+    revealIndex++;
+  } else {
+    revealIndex = 0;
+    spans.forEach((span, i) => {
+      span.textContent = messageRunes[i].rune;
+    });
+  }
 }
 
-// Initialize rune text
-runeContainer.innerHTML = '';
-for (let i = 0; i < message.length; i++) {
-  const char = message[i] === " " ? " " : message[i];
-  createRuneChar(char, i);
-}
-
-// Start animation loop
-setInterval(animateRunes, 30000); // full animation cycle every 30 seconds
+setInterval(animateRunes, interval);
