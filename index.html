@@ -5,20 +5,56 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>The Bloodline Watchers</title>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="runes.css">
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="runes.css" />
 </head>
 <body>
   <div id="background-symbols"></div>
-  <img id="logo" src="logo.jpeg" alt="Watcher Sigil">
-  <h1 class="title">The Bloodline Watchers</h1>
-  <p class="subtitle">Chapter One: <em>The Awakening.</em></p>
-  <p class="countdown" id="countdown"></p>
-  <div id="runes"></div>
+  <img id="logo" src="sigil.png" alt="Watcher Sigil" />
+
+  <div class="content">
+    <h1>The Bloodline Watchers</h1>
+    <h2>Chapter One: <em>The Awakening</em></h2>
+
+    <div class="countdown-container">
+      <p id="countdown"></p>
+    </div>
+
+    <p class="tagline">
+      A mythic, visual landing page for prophecy, whispers, and the return of the elemental flamebearers.
+    </p>
+  </div>
+
+  <div class="runes-container">
+    <p id="rune-text">ᚦᚺᛖᚲᚺᛟᛋᛖᚾᛟᚾᛖᚹᛁᛚᛚᚱᛖᛗᛖᛗᛒᛖᚱ</p>
+  </div>
+
   <audio autoplay loop>
-    <source src="ambient_whispers.mp3" type="audio/mpeg">
+    <source src="ambient_whispers.mp3" type="audio/mp3" />
   </audio>
+
   <script src="runes.js"></script>
+  <script>
+    // Countdown Timer Script
+    const countdown = document.getElementById("countdown");
+    const launchDate = new Date("August 13, 2025 20:13:00").getTime();
+
+    const timer = setInterval(() => {
+      const now = new Date().getTime();
+      const distance = launchDate - now;
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      countdown.innerHTML = `⏳ ${days} days, ${hours} hours, ${minutes} minutes, ${seconds} seconds until the first flame is revealed`;
+
+      if (distance < 0) {
+        clearInterval(timer);
+        countdown.innerHTML = "🔥 The flame has awakened.";
+      }
+    }, 1000);
+  </script>
 </body>
 </html>
-
