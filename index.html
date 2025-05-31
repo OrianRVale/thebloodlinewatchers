@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>The Bloodline Watchers</title>
   <style>
     html, body {
@@ -80,6 +80,34 @@
       color: #bbb;
       margin-top: 1rem;
     }
+
+    .revelation-scroll {
+      margin-top: 4rem;
+      text-align: center;
+      max-width: 600px;
+      z-index: 1;
+    }
+
+    .revelation-scroll h2 {
+      font-size: 1.6rem;
+      margin-bottom: 1rem;
+      color: #f0e68c;
+    }
+
+    .paragraph {
+      display: none;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+      margin-bottom: 2rem;
+      font-size: 1.1rem;
+      line-height: 1.6;
+      color: #e0e0e0;
+    }
+
+    .paragraph.revealed {
+      display: block;
+      opacity: 1;
+    }
   </style>
 </head>
 <body>
@@ -90,21 +118,29 @@
       <img src="sigil.png" alt="Watcher Sigil" />
     </div>
     <h1 class="title">The Bloodline Watchers</h1>
-    <p class="countdown" id="countdown-timer">The first paragraph reveals in: <span id="timer"></span></p>
+    <p class="countdown" id="countdown-timer">The prophecy awakens in: <span id="timer"></span></p>
+  </div>
+
+  <div class="revelation-scroll">
+    <h2>The Revelation Scroll</h2>
+    <div id="para1" class="paragraph">The first seal weakens… prepare for what cannot be unseen.</div>
   </div>
 
   <script>
-    // Set your countdown target date here
-    const targetDate = new Date("August 1, 2025 00:00:00").getTime();
-
     const timer = document.getElementById("timer");
+    const para1 = document.getElementById("para1");
+
+    // Final chapter unlock time
+    const finalDate = new Date("August 13, 2025 20:13:00").getTime();
+    // First paragraph unlock (10 days from now — adjust as needed)
+    const para1Date = new Date("June 10, 2025 00:00:00").getTime();
 
     function updateCountdown() {
       const now = new Date().getTime();
-      const distance = targetDate - now;
+      const distance = finalDate - now;
 
       if (distance <= 0) {
-        timer.innerHTML = "It has begun...";
+        timer.innerHTML = "It has begun…";
         return;
       }
 
@@ -116,8 +152,17 @@
       timer.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
     }
 
+    function checkReveals() {
+      const now = new Date().getTime();
+      if (now >= para1Date) {
+        para1.classList.add("revealed");
+      }
+    }
+
     updateCountdown();
     setInterval(updateCountdown, 1000);
+    checkReveals();
+    setInterval(checkReveals, 60000); // Check every minute
   </script>
 </body>
 </html>
