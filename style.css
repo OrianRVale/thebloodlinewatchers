@@ -1,4 +1,4 @@
-/* style.css */
+/* style.css - Cleaned and Aligned */
 
 body {
   margin: 0;
@@ -10,51 +10,17 @@ body {
 }
 
 .hero {
-  height: 100vh;
-  background: radial-gradient(ellipse at center, #1e1e1e 0%, #000000 100%);
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
-  padding: 2rem;
+  padding: 2rem 1rem;
   position: relative;
+  background: radial-gradient(ellipse at center, #1a1a1a 0%, #000000 100%);
 }
 
-h1 {
-  font-size: 3rem;
-  margin: 0.5rem 0;
-  color: #ffffe6;
-  animation: pulseGlow 6s infinite;
-  z-index: 2;
-}
-
-h2 {
-  font-size: 1.3rem;
-  font-style: italic;
-  color: #ccc;
-  margin-top: 0.5rem;
-  z-index: 2;
-}
-
-p {
-  font-size: 1rem;
-  margin: 1rem 0;
-  z-index: 2;
-  max-width: 90%;
-}
-
-/* Backlight pulse on h1 only */
-@keyframes pulseGlow {
-  0%, 100% {
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
-  }
-  50% {
-    text-shadow: 0 0 20px rgba(255, 255, 255, 0.9);
-  }
-}
-
-/* Background symbol layer */
 #background-symbols {
   position: absolute;
   top: 0;
@@ -67,7 +33,7 @@ p {
   pointer-events: none;
 }
 
-/* Sigil */
+/* Logo & Sigil */
 #sigil {
   max-width: 300px;
   width: 90%;
@@ -75,7 +41,23 @@ p {
   z-index: 2;
 }
 
-/* Countdown and other elements */
+h1 {
+  font-size: 2.8rem;
+  color: #ffffe6;
+  margin: 0.5rem 0;
+  z-index: 2;
+  animation: pulseGlow 6s infinite;
+}
+
+h2 {
+  font-size: 1.3rem;
+  font-style: italic;
+  color: #ccc;
+  margin-top: 0.3rem;
+  z-index: 2;
+}
+
+/* Countdown */
 .countdown {
   font-size: 1rem;
   color: #ccc;
@@ -83,24 +65,36 @@ p {
   z-index: 2;
 }
 
+/* Description text */
 .description {
   font-size: 1rem;
-  margin: 0.5rem auto;
-  max-width: 90%;
   color: #d9d9d9;
+  margin: 1rem auto 1.5rem;
+  max-width: 90%;
+  z-index: 2;
 }
 
-/* Runes container at bottom */
+/* Runes Bar */
 .runes {
   font-size: 1.2rem;
   color: #ffffcc;
-  margin-top: 2rem;
+  margin: 2rem 0 1rem;
   height: 2rem;
   z-index: 2;
   text-shadow: 0 0 6px #ffffcc;
 }
 
-/* Responsive layout */
+/* Glowing animation for main title */
+@keyframes pulseGlow {
+  0%, 100% {
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+  }
+  50% {
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+  }
+}
+
+/* Mobile */
 @media screen and (max-width: 768px) {
   h1 {
     font-size: 2rem;
@@ -108,10 +102,7 @@ p {
   h2 {
     font-size: 1rem;
   }
-  p, .description {
-    font-size: 0.9rem;
-  }
-  .countdown {
+  .description, .countdown {
     font-size: 0.9rem;
   }
 }
