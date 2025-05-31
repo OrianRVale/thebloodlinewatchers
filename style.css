@@ -1,39 +1,15 @@
 body {
   margin: 0;
-  font-family: 'Cinzel', serif;
-  background-color: #000;
-  color: white;
+  padding: 0;
   overflow-x: hidden;
-}
-
-#logo {
-  display: block;
-  margin: 50px auto 20px;
-  width: 150px;
-  filter: drop-shadow(0 0 8px white);
-  animation: pulseGlow 6s infinite;
-}
-
-.title {
-  text-align: center;
-  font-size: 3rem;
-  color: #ffffff;
-  text-shadow: 0 0 10px #fff;
-}
-
-.subtitle {
-  text-align: center;
-  font-size: 1.3rem;
-  margin-top: -10px;
-  color: #ddd;
-}
-
-.countdown {
-  text-align: center;
-  font-size: 1.8rem;
-  margin-top: 30px;
-  color: #cfcfcf;
-  font-style: italic;
+  background: #0b0b0b;
+  color: #f5f5f5;
+  font-family: 'Cinzel', serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  position: relative;
 }
 
 #background-symbols {
@@ -42,65 +18,110 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background: url('sigil_background.gif') center center repeat;
-  opacity: 0.05;
+  background: url('background-symbols.png') center/cover no-repeat;
+  opacity: 0.15;
   z-index: -1;
-  animation: fadeSymbols 30s infinite alternate;
+  pointer-events: none;
 }
 
-#runes {
+#logo {
+  width: 90%;
+  max-width: 350px;
+  height: auto;
+  margin: 2rem 0 1rem 0;
+  box-shadow: 0 0 25px #000;
+  border: 2px solid #222;
+  background-color: #111;
+}
+
+h1 {
+  font-size: 2.5rem;
+  color: #fff;
+  text-shadow: 0 0 8px #fff;
+  margin: 0.5rem 0;
   text-align: center;
-  font-size: 2rem;
-  margin: 40px auto;
-  max-width: 90%;
-  white-space: nowrap;
+}
+
+h2 {
+  font-size: 1.2rem;
+  font-style: italic;
   color: #ccc;
-  letter-spacing: 0.15em;
-  font-family: 'Courier New', Courier, monospace;
-  min-height: 2em;
+  margin-bottom: 1.5rem;
+  text-align: center;
 }
 
-/* Animations */
-@keyframes pulseGlow {
-  0%, 100% {
-    filter: drop-shadow(0 0 8px white);
+.countdown {
+  font-size: 1.1rem;
+  color: #ccc;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.description {
+  font-size: 1rem;
+  color: #f5f5f5;
+  padding: 0 1.5rem;
+  max-width: 800px;
+  text-align: center;
+  line-height: 1.6;
+  text-shadow: 0 0 3px #000;
+}
+
+/* Rune Flip Text */
+.rune-row {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 2rem;
+}
+
+.rune-char {
+  font-family: monospace;
+  font-size: 1.3rem;
+  color: #fff;
+  margin: 0 4px;
+  transition: all 0.3s ease-in-out;
+  filter: drop-shadow(0 0 2px #fff);
+}
+
+/* Pulse Title */
+.pulsing-title {
+  animation: glow 3s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+  from {
+    text-shadow: 0 0 8px #fff;
   }
-  50% {
-    filter: drop-shadow(0 0 16px white);
+  to {
+    text-shadow: 0 0 20px #ffffff;
   }
 }
 
-@keyframes fadeSymbols {
-  0% {
-    background-position: 0 0;
-  }
-  100% {
-    background-position: 100px 100px;
-  }
-}
-
-/* Mobile Optimization */
-@media (max-width: 768px) {
-  .title {
+/* Responsive */
+@media (max-width: 600px) {
+  h1 {
     font-size: 2rem;
   }
 
-  .subtitle {
+  h2 {
     font-size: 1rem;
   }
 
   .countdown {
-    font-size: 1.2rem;
+    font-size: 1rem;
+  }
+
+  .description {
+    font-size: 0.9rem;
+    padding: 0 1rem;
   }
 
   #logo {
-    width: 100px;
-    margin-top: 30px;
+    max-width: 280px;
   }
 
-  #runes {
-    font-size: 1.4rem;
-    padding: 0 10px;
+  .rune-char {
+    font-size: 1.1rem;
   }
 }
-
