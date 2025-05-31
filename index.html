@@ -7,37 +7,27 @@
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="runes.css">
   <style>
-    body,html{
-      height:100%;margin:0;padding:0;overflow:hidden;
-      background:#000;color:#d4c295;font-family:'Cinzel',serif;
-      display:flex;flex-direction:column;align-items:center;justify-content:center;
-      position:relative;
+    body,html {
+      height:100%;margin:0;padding:0;overflow:hidden;background:#000;color:#d4c295;
+      font-family:'Cinzel',serif;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;
     }
-    #background-symbols{
+    #background-symbols {
       position:absolute;top:0;left:0;width:100%;height:100%;
       background:url('background-symbols.png') center/cover no-repeat;opacity:0.2;z-index:0;
     }
-    #logo{
+    #logo {
       position:absolute;top:50%;left:50%;width:350px;height:350px;
       background:url('logo.jpeg') no-repeat center;background-size:contain;
       transform:translate(-50%,-50%);opacity:0.6;z-index:1;pointer-events:none;
     }
-    #eye{
-      position:absolute;top:50%;left:50%;width:60px;height:30px;transform:translate(-50%,-50%);
-      overflow:hidden;background:transparent;z-index:2;
-    }
-    #pupil{
-      position:absolute;top:50%;left:50%;width:16px;height:16px;background:#000;border-radius:50%;
-      transform:translate(-50%,-50%);box-shadow:inset 0 0 5px rgba(255,255,255,0.4);
-    }
-    #title{
+    #title {
       font-size:2.5rem;text-align:center;position:relative;z-index:3;
-      text-shadow:0 0 20px rgba(212,194,149,0.3);transition:text-shadow 2s ease;
+      text-shadow:0 0 10px rgba(212,194,149,0.3);transition:text-shadow 2s ease;
     }
-    #subtitle{
-      color:#aaa07a;margin-top:10px;position:relative;z-index:3;
+    #subtitle {
+      color:#aaa07a;margin-top:10px;position:relative;z-index:3;font-size:1rem;
     }
-    canvas#runeCanvas{
+    canvas#runeCanvas {
       position:absolute;top:0;left:0;width:100%;height:100%;z-index:1;pointer-events:none;
     }
   </style>
@@ -48,8 +38,6 @@
 <div id="logo"></div>
 <canvas id="runeCanvas"></canvas>
 
-<div id="eye"><div id="pupil"></div></div>
-
 <h1 id="title">THE BLOODLINE WATCHERS</h1>
 <div id="subtitle">Chapter 1 Reveal: August 13, 2025 • 8:13 PM CST</div>
 
@@ -57,31 +45,21 @@
 
 <script src="runes.js"></script>
 <script>
-  // Blinking Eye & Tracking
-  const pupil=document.getElementById('pupil'),eye=document.getElementById('eye'),maxMove=8;
-  document.addEventListener('mousemove',(e)=>{
-    const r=eye.getBoundingClientRect(),x=r.left+r.width/2,y=r.top+r.height/2,
-    a=Math.atan2(e.clientY-y,e.clientX-x),px=Math.cos(a)*maxMove,py=Math.sin(a)*maxMove;
-    pupil.style.transform=`translate(calc(-50% + ${px}px),calc(-50% + ${py}px))`;
-  });
-  setInterval(()=>{eye.style.height='0px';setTimeout(()=>eye.style.height='30px',120);},Math.random()*4000+4000);
-
-  // Runes Whisper Initialization from runes.js
+  // Rune whispers initialization
   window.onload=()=>{if(typeof startRuneAnimation==='function')startRuneAnimation();};
 
-  // Dynamic Glow Effect Based on Countdown (August 13, 2025 8:13 PM CST)
+  // Dynamic Glow Effect (intensifies gradually until reveal)
   function adjustGlow(){
     const now=new Date().getTime();
     const reveal=new Date('August 13, 2025 20:13:00 CST').getTime();
     const daysRemaining=(reveal-now)/(1000*60*60*24);
-    const maxGlow=1; const minGlow=0.2;
-    let glowIntensity=maxGlow-Math.min(Math.max(daysRemaining/70,0),1)*(maxGlow-minGlow);
-    document.getElementById('title').style.textShadow=`0 0 ${10+30*glowIntensity}px rgba(212,194,149,${glowIntensity})`;
+    const glow=Math.min(Math.max((70-daysRemaining)/70,0.2),1);
+    document.getElementById('title').style.textShadow=`0 0 ${10+40*glow}px rgba(212,194,149,${glow})`;
   }
   adjustGlow();
-  setInterval(adjustGlow,1000*60*60*24); // Re-check daily
+  setInterval(adjustGlow,1000*60*60*24); // Check daily
 
-  // Soft audio playback assurance (auto-play handling)
+  // Play ambient whispers audio upon first user interaction
   document.body.addEventListener('click',()=>document.getElementById('ambientAudio').play().catch(()=>{}),{once:true});
 </script>
 
