@@ -2,128 +2,261 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>The Bloodline Watchers</title>
-  <link rel="stylesheet" href="runes.css">
+
+  <!-- Link to the “Orbitron” font for a cosmic/techno feel -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+
   <style>
-    body {
+    /* ===== Reset & Base Styles ===== */
+    * {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      background: #0b0b0b url('background-symbols.png') repeat;
-      background-size: cover;
-      color: #f5f5f5;
-      font-family: "Georgia", serif;
-      overflow-x: hidden;
+    }
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+    body {
+      background: #000;                           /* Pitch-black “space” background */
+      color: #e0e0e0;                              /* Light gray text */
+      font-family: 'Orbitron', sans-serif;        /* Orbitron font for headings/embed */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
       text-align: center;
     }
 
-    .hero {
+    /* ===== Site Title & Subtitle ===== */
+    #title {
+      font-size: 3rem;
+      letter-spacing: 0.1em;
+      margin-bottom: 1rem;
+      color: #fff;
+      text-shadow:
+        0 0 10px rgba(0,255,200,0.7),
+        0 0 20px rgba(0,255,200,0.5);
+      animation: pulse 2s infinite ease-in-out;
+    }
+    @keyframes pulse {
+      0%, 100% {
+        text-shadow:
+          0 0 10px rgba(0,255,200,0.7),
+          0 0 20px rgba(0,255,200,0.5);
+      }
+      50% {
+        text-shadow:
+          0 0 20px rgba(0,255,200,0.9),
+          0 0 30px rgba(0,255,200,0.7);
+      }
+    }
+    #subtitle {
+      font-size: 1.25rem;
+      margin-bottom: 2rem;
+      color: #ccc;
+      line-height: 1.4;
+    }
+
+    /* ===== “Coming Soon” / Placeholder Section ===== */
+    #placeholder-signup {
+      margin-top: 2rem;
+      font-size: 1rem;
+      color: #777;
+      border: 2px dashed rgba(0,255,200,0.6);
+      padding: 1rem 2rem;
+      border-radius: 8px;
+      max-width: 80vw;
+      line-height: 1.4;
+    }
+
+    /* ===== Footer / Social Links ===== */
+    #footer {
+      position: absolute;
+      bottom: 1rem;
+      font-size: 0.875rem;
+      color: #777;
+      text-align: center;
+    }
+    #footer a {
+      color: #00ffc8;
+      margin: 0 0.5rem;
+      text-decoration: none;
+    }
+    #footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* ===== Eyetracker Container & Styles ===== */
+    #eye-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
       height: 100vh;
+      background: transparent;
       display: flex;
-      flex-direction: column;
       justify-content: center;
       align-items: center;
-      padding: 2rem;
+      pointer-events: none;   /* Let clicks pass through */
+      z-index: 999;           /* Always on top */
     }
-
-    .hero h1 {
-      font-size: 3rem;
-      color: #ffffe0;
-      text-shadow: 0 0 10px #ffffcc;
-      animation: glow 3s ease-in-out infinite alternate;
+    #eye {
+      position: relative;
+      width: 200px;            /* Adjust eyeball size as needed */
+      height: 200px;
+      background: #fff;         /* White eyeball */
+      border: 4px solid rgba(0, 255, 200, 0.8);  /* Electric teal glow */
+      border-radius: 50%;
+      box-shadow:
+        0 0 20px rgba(0, 255, 200, 0.6),
+        0 0 40px rgba(0, 255, 200, 0.4);
+      overflow: hidden;
     }
-
-    .hero p {
-      font-size: 1.5rem;
-      font-style: italic;
-      color: #cccccc;
-      margin-top: 1rem;
+    #eye.blink {
+      animation: blink-close 0.1s forwards;
     }
-
-    @keyframes glow {
-      from { text-shadow: 0 0 10px #ffffcc; }
-      to { text-shadow: 0 0 20px #ffffff, 0 0 30px #ffffff; }
+    #eye.blink.open {
+      animation: blink-open 0.15s forwards;
     }
-
-    .sigil {
-      background: #111;
-      padding: 2rem;
-      border-radius: 12px;
-      box-shadow: 0 0 30px #0f0f0f;
+    @keyframes blink-close {
+      to { transform: scaleY(0); }
     }
-
-    .sigil img {
-      max-width: 250px;
-      box-shadow: 0 0 20px rgba(255, 255, 150, 0.2);
-      margin-top: 1rem;
+    @keyframes blink-open {
+      to { transform: scaleY(1); }
     }
-
-    #countdown {
-      font-size: 1.25rem;
-      margin-top: 1.5rem;
-      color: #aaaaaa;
+    #iris {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 50px;             /* Pupil size */
+      height: 50px;
+      background: #000;        /* Black pupil */
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
     }
-
-    .rune-message {
-      font-family: "Courier New", monospace;
-      font-size: 1.2rem;
-      margin-top: 3rem;
-      color: #ffd;
-      letter-spacing: 0.1em;
-    }
-
-    .glow {
-      animation: softGlow 3s ease-in-out infinite;
-    }
-
-    @keyframes softGlow {
-      0% { text-shadow: 0 0 6px #fffae0; }
-      50% { text-shadow: 0 0 12px #fffcc0; }
-      100% { text-shadow: 0 0 6px #fffae0; }
+    #iris::after {
+      content: "";
+      position: absolute;
+      top: 12%;
+      left: 12%;
+      width: 60%;
+      height: 60%;
+      background: rgba(255, 255, 255, 0.2);  /* Subtle highlight */
+      border-radius: 50%;
     }
   </style>
 </head>
-
 <body>
-  <!-- 🔊 Ambient Audio -->
-  <audio autoplay loop>
-    <source src="ambient_whispers.mp3" type="audio/mpeg">
-    Your browser does not support the audio element.
-  </audio>
-
-  <!-- 🔥 Sigil and Hero Section -->
-  <div class="hero">
-    <div class="sigil">
-      <h2>Watcher Sigil</h2>
-      <img src="sigil.png" alt="Watcher Sigil">
+  <!-- ===== Blinking & Tracking Eye ===== -->
+  <div id="eye-container">
+    <div id="eye">
+      <div id="iris"></div>
     </div>
-    <h1>The Bloodline Watchers</h1>
-    <p>Chapter One: The Awakening.</p>
-    <div id="countdown"></div>
   </div>
 
-  <!-- 🔮 Rune Message -->
-  <div class="rune-message glow" id="runeReveal">
-    ᚦᚺᛖ ᚲᚺᛟᛊᛖᚾ ᛟᚾᛖ ᚹᛁᛚᛚ ᚱᛖᛗᛖᛗᛒᛖᚱ, ᚨᚾᛞ ᛊᛟ ᛞᛟ ᚹᛖ.
+  <!-- ===== Main Content ===== -->
+  <div id="content">
+    <h1 id="title">THE BLOODLINE WATCHERS</h1>
+    <p id="subtitle">
+      Coming Soon<br>
+      Chapter 1 Reveal: August 13, 2025 • 8:13 PM CST
+    </p>
+
+    <!-- ===== Placeholder for Email Signup ===== -->
+    <div id="placeholder-signup">
+      <p>Email invitations coming soon. Stay tuned to receive hidden glyph updates and secret whispers when they arrive.</p>
+    </div>
   </div>
 
-  <!-- ⏳ Countdown Script -->
+  <!-- ===== Footer / Social Links ===== -->
+  <div id="footer">
+    <span>Follow us:</span>
+    <a href="https://tiktok.com/" target="_blank" rel="noopener noreferrer">TikTok</a> |
+    <a href="https://instagram.com/" target="_blank" rel="noopener noreferrer">Instagram</a><br>
+    <span>Domain unlocking in progress. Thank you for traveling this cosmic path with us.</span>
+  </div>
+
+  <!-- ===== JavaScript for Eye Tracking & Blinking ===== -->
   <script>
-    const countdown = document.getElementById("countdown");
-    const targetDate = new Date("August 13, 2025 20:13:00").getTime();
+    (function() {
+      const eye = document.getElementById('eye');
+      const iris = document.getElementById('iris');
+      let eyeRect, eyeCenterX, eyeCenterY;
+      const maxOffset = 50; // Max distance (in px) the pupil can move from center
 
-    setInterval(() => {
-      const now = new Date().getTime();
-      const distance = targetDate - now;
+      function updateEyeMetrics() {
+        eyeRect = eye.getBoundingClientRect();
+        eyeCenterX = eyeRect.left + eyeRect.width / 2;
+        eyeCenterY = eyeRect.top + eyeRect.height / 2;
+      }
 
-      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      // Move pupil toward (x, y) within eye bounds
+      function moveIrisToward(x, y) {
+        const dx = x - eyeCenterX;
+        const dy = y - eyeCenterY;
+        const angle = Math.atan2(dy, dx);
+        const irisX = Math.cos(angle) * maxOffset;
+        const irisY = Math.sin(angle) * maxOffset;
+        iris.style.transform = \`translate(calc(-50% + \${irisX}px), calc(-50% + \${irisY}px))\`;
+      }
 
-      countdown.innerHTML = `⏳ ${days} days, ${hours} hours until the first flame is revealed`;
-    }, 1000);
+      // Desktop: track mouse movements
+      window.addEventListener('mousemove', function(event) {
+        updateEyeMetrics();
+        moveIrisToward(event.clientX, event.clientY);
+      });
+
+      // Mobile: track touch moves as fallback
+      window.addEventListener('touchmove', function(e) {
+        if (e.touches.length > 0) {
+          const touch = e.touches[0];
+          updateEyeMetrics();
+          moveIrisToward(touch.clientX, touch.clientY);
+        }
+      }, { passive: true });
+
+      // Mobile: track device orientation (tilt)
+      window.addEventListener('deviceorientation', function(event) {
+        updateEyeMetrics();
+        const gamma = event.gamma || 0; // Left/right tilt
+        const beta = event.beta || 0;   // Front/back tilt
+        const x = eyeCenterX + (gamma / 90) * maxOffset;
+        const y = eyeCenterY + (beta / 90) * maxOffset;
+        moveIrisToward(x, y);
+      });
+
+      // Schedule random blinks between 5–8 seconds
+      function scheduleBlink() {
+        const blinkInterval = 5000 + Math.random() * 3000; // 5000–8000 ms
+        setTimeout(() => {
+          eye.classList.add('blink');
+          // After closing (0.1s), reopen
+          setTimeout(() => {
+            eye.classList.remove('blink');
+            eye.classList.add('open');
+            // Remove “open” after 0.15s
+            setTimeout(() => {
+              eye.classList.remove('open');
+              scheduleBlink(); // Schedule next blink
+            }, 150);
+          }, 100);
+        }, blinkInterval);
+      }
+
+      // Initialize on page load
+      window.addEventListener('load', function() {
+        updateEyeMetrics();
+        scheduleBlink();
+      });
+
+      // Recompute center on resize
+      window.addEventListener('resize', updateEyeMetrics);
+    })();
   </script>
-
-  <!-- 🔁 Rune Flip Logic -->
-  <script src="runes.js"></script>
 </body>
 </html>
