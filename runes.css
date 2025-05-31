@@ -1,0 +1,12 @@
+
+@keyframes flipIn {
+  0% { transform: rotateX(0); opacity: 1; }
+  50% { transform: rotateX(90deg); opacity: 0; }
+  100% { transform: rotateX(0); opacity: 1; }
+}
+
+.rune-message span {
+  display: inline-block;
+  animation: flipIn 3s ease-in-out infinite;
+  animation-delay: calc(var(--char-index) * 0.1s);
+}
