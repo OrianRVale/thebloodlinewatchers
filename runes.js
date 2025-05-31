@@ -1,44 +1,58 @@
+const runesEl = document.getElementById('runes');
 
-const runePairs = [
-  ["ᚦ", "T"], ["ᛖ", "h"], ["ᛖ", "e"], ["ᚲ", " "],
-  ["ᛒ", "c"], ["ᛚ", "h"], ["ᛟ", "o"], ["ᛋ", "s"],
-  ["ᛖ", "e"], ["ᚾ", "n"], ["ᚲ", " "], ["ᛟ", "o"],
-  ["ᚾ", "n"], ["ᚹ", "e"], ["ᛚ", " "], ["ᚹ", "r"],
-  ["ᛖ", "e"], ["ᛗ", "m"], ["ᛖ", "e"], ["ᛗ", "m"],
-  ["ᛞ", "b"], ["ᛖ", "e"], ["ᚱ", ","], ["ᚲ", " "],
-  ["ᛗ", "a"], ["ᛞ", "n"], ["ᛞ", "d"], ["ᚲ", " "],
-  ["ᛋ", "s"], ["ᛟ", "o"], ["ᛞ", " "], ["ᛞ", "o"],
-  ["ᚢ", " "], ["ᚹ", "w"], ["ᛖ", "e"]
-];
+// Use Elder Futhark Norse runes and their matching English letters
+const runesMap = {
+  A: 'ᚨ',
+  B: 'ᛒ',
+  C: 'ᚲ',
+  D: 'ᛞ',
+  E: 'ᛖ',
+  F: 'ᚠ',
+  G: 'ᚷ',
+  H: 'ᚺ',
+  I: 'ᛁ',
+  J: 'ᛃ',
+  K: 'ᚲ',
+  L: 'ᛚ',
+  M: 'ᛗ',
+  N: 'ᚾ',
+  O: 'ᛟ',
+  P: 'ᛈ',
+  Q: 'ᚲ',
+  R: 'ᚱ',
+  S: 'ᛊ',
+  T: 'ᛏ',
+  U: 'ᚢ',
+  V: 'ᚡ',
+  W: 'ᚹ',
+  X: 'ᛉ',
+  Y: 'ᛃ',
+  Z: 'ᛉ',
+  ' ': ' ',
+  ',': ',',
+  '.': '.',
+};
 
-const runeElement = document.getElementById("runeMessage");
+const phrase = 'THE CHOSEN ONE WILL REMEMBER, AND SO DO WE.';
+let isRune = true;
 
-let currentStep = 0;
-function cycleRunes() {
-  const display = runePairs.map(([rune, latin], index) => {
-    return index <= currentStep ? latin : rune;
-  }).join(" ");
-  runeElement.textContent = display;
-  currentStep++;
-  if (currentStep > runePairs.length) currentStep = 0;
+function translate(text, toRunes) {
+  return text
+    .split('')
+    .map(char => {
+      const upper = char.toUpperCase();
+      return toRunes ? (runesMap[upper] || char) : upper;
+    })
+    .join('');
 }
 
-setInterval(cycleRunes, 800);
-cycleRunes();
-
-function updateCountdown() {
-  const countdown = document.getElementById("countdown");
-  const targetDate = new Date("August 13, 2025 20:13:00").getTime();
-  const now = new Date().getTime();
-  const diff = targetDate - now;
-  if (diff < 0) {
-    countdown.textContent = "The first flame has been revealed.";
-    return;
-  }
-  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-  const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-  countdown.textContent = `⏳ ${days} days, ${hours} hours until the first flame is revealed`;
+function updateText() {
+  runesEl.textContent = translate(phrase, isRune);
+  isRune = !isRune;
 }
 
-setInterval(updateCountdown, 1000);
-updateCountdown();
+// Initial display in runes
+runesEl.textContent = translate(phrase, true);
+
+// Tick effect every 10 seconds
+setInterval(updateText, 10000);
