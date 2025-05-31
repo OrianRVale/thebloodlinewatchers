@@ -1,35 +1,47 @@
-document.addEventListener("DOMContentLoaded", function () {
-  const flipText = "The chosen one will remember, and so do we.";
-  const runeMap = {
-    A: "ᚨ", B: "ᛒ", C: "ᚲ", D: "ᛞ", E: "ᛖ", F: "ᚠ",
-    G: "ᚷ", H: "ᚺ", I: "ᛁ", J: "ᛃ", K: "ᚴ", L: "ᛚ",
-    M: "ᛗ", N: "ᚾ", O: "ᛟ", P: "ᛈ", Q: "ᛩ", R: "ᚱ",
-    S: "ᛋ", T: "ᛏ", U: "ᚢ", V: "ᚡ", W: "ᚹ", X: "ᛪ",
-    Y: "ᛇ", Z: "ᛉ", " ": " ", ",": ",", ".": "."
-  };
+const runeContainer = document.getElementById('runes-container');
 
-  const display = document.getElementById("runeDisplay");
+const norseRunes = [
+  'ᚠ', 'ᚢ', 'ᚦ', 'ᚨ', 'ᚱ', 'ᚲ', 'ᚷ', 'ᚹ', 'ᚺ', 'ᚾ',
+  'ᛁ', 'ᛃ', 'ᛇ', 'ᛈ', 'ᛉ', 'ᛋ', 'ᛏ', 'ᛒ', 'ᛖ', 'ᛗ',
+  'ᛚ', 'ᛜ', 'ᛞ', 'ᛟ'
+];
 
-  let currentIndex = 0;
-  let showingEnglish = false;
+const englishText = "The chosen one will remember, and so do we.";
+let runeIndex = 0;
+let revealIndex = 0;
+let direction = 'toEnglish'; // toggles between directions
 
-  function flipLetterByLetter() {
-    let currentText = flipText.split('').map((char, idx) => {
-      if (idx < currentIndex) return showingEnglish ? char : runeMap[char.toUpperCase()] || char;
-      return showingEnglish ? runeMap[char.toUpperCase()] || char : char;
-    }).join('');
+function flipLetterByLetter() {
+  let display = "";
 
-    display.textContent = currentText;
+  for (let i = 0; i < englishText.length; i++) {
+    const char = englishText[i];
 
-    currentIndex++;
-
-    if (currentIndex > flipText.length) {
-      showingEnglish = !showingEnglish;
-      currentIndex = 0;
+    if (i < revealIndex) {
+      display += direction === 'toEnglish' ? char : getRandomRune();
+    } else if (char === " ") {
+      display += " ";
+    } else {
+      display += getRandomRune();
     }
-
-    setTimeout(flipLetterByLetter, 150); // slower tick
   }
 
-  flipLetterByLetter();
-});
+  runeContainer.textContent = display;
+
+  if (revealIndex < englishText.length) {
+    revealIndex++;
+  } else {
+    setTimeout(() => {
+      direction = direction === 'toEnglish' ? 'toRunes' : 'toEnglish';
+      revealIndex = 0;
+    }, 3000); // Pause before flip back
+  }
+
+  setTimeout(flipLetterByLetter, 150); // Slower eerie tick
+}
+
+function getRandomRune() {
+  return norseRunes[Math.floor(Math.random() * norseRunes.length)];
+}
+
+flipLetterByLetter();
