@@ -1,26 +1,115 @@
-#logo {
-  position: relative;
-  width: 340px;
-  height: 340px;
-  margin: 0 auto;
-  background: url('logo.jpeg') no-repeat center;
-  background-size: contain;
-  z-index: 2;
-  box-shadow: 0 0 50px rgba(255, 255, 255, 0.08);
-  border-radius: 12px;
-  opacity: 0.95;
-  transition: all 0.5s ease-in-out;
+/* Reset and base styles */
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: 'Cinzel', serif;
+  background: #000;
+  color: #fff;
+  height: 100%;
+  overflow-x: hidden;
 }
 
-#logo::before {
-  content: '';
-  position: absolute;
-  top: -20px;
-  left: -20px;
-  width: 380px;
-  height: 380px;
-  background: radial-gradient(circle, rgba(255,255,255,0.03) 0%, transparent 70%);
-  filter: blur(40px);
+/* Background overlay for subtle shimmer */
+.background-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('glyph_bg.gif') center center / cover no-repeat;
+  opacity: 0.05;
+  z-index: 0;
+  animation: shimmer 30s infinite linear;
+}
+
+/* Sigil logo */
+.sigil-logo {
+  max-width: 300px;
+  margin-top: 30px;
+  margin-bottom: -30px;
+  filter: drop-shadow(0 0 5px white);
   z-index: 1;
-  pointer-events: none;
+  position: relative;
+}
+
+/* Glowing Title */
+.glow-title {
+  font-size: 3.5rem;
+  text-align: center;
+  color: #fff;
+  text-shadow: 0 0 8px rgba(255,255,255,0.6), 0 0 16px rgba(255,255,255,0.4);
+  animation: pulseGlow 4s ease-in-out infinite alternate;
+  z-index: 2;
+  position: relative;
+}
+
+/* Countdown */
+.countdown-container {
+  text-align: center;
+  margin-top: 40px;
+}
+
+.subtext {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  color: #ccc;
+}
+
+#countdown {
+  font-size: 2rem;
+  letter-spacing: 2px;
+}
+
+/* Reveal Runes */
+.rune-flip {
+  margin-top: 60px;
+  text-align: center;
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #ccc;
+  font-family: 'Courier New', monospace;
+  animation: runePulse 10s infinite alternate;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  font-size: 0.9rem;
+  margin-top: 60px;
+  color: #666;
+}
+
+/* Animations */
+@keyframes shimmer {
+  0% { background-position: center top; }
+  100% { background-position: center bottom; }
+}
+
+@keyframes pulseGlow {
+  0% { text-shadow: 0 0 8px rgba(255,255,255,0.4); }
+  100% { text-shadow: 0 0 16px rgba(255,255,255,0.9); }
+}
+
+@keyframes runePulse {
+  0% { color: #999; }
+  100% { color: #fff; }
+}
+
+/* Responsive Adjustments */
+@media only screen and (max-width: 768px) {
+  .glow-title {
+    font-size: 2.2rem;
+  }
+
+  .sigil-logo {
+    max-width: 200px;
+  }
+
+  #countdown {
+    font-size: 1.4rem;
+  }
+
+  .rune-flip {
+    font-size: 1rem;
+  }
 }
