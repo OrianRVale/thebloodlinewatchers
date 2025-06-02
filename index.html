@@ -6,70 +6,84 @@
   <title>The Bloodline Watchers</title>
   <style>
     html, body {
-      margin: 0;
-      padding: 0;
-      height: 100%;
+      margin: 0; padding: 0; height: 100%;
       background: #0b0b0b;
       color: #fff;
       font-family: 'Georgia', serif;
       overflow: hidden;
+      min-height: 100vh;
     }
     .title {
       position: absolute;
-      top: 35vh;
-      width: 100%;
+      top: 22vh;
+      width: 100vw;
       text-align: center;
-      font-size: 2.7rem;
+      font-size: 3.2rem;
       font-weight: bold;
       color: #fff;
-      text-shadow: 0 0 36px #fff, 0 0 12px #3ef, 0 0 28px #fff;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.07em;
       z-index: 2;
+      text-shadow:
+        0 0 60px #7eeeff, /* blue-cyan glow */
+        0 0 120px #fff,
+        0 0 18px #fff,
+        0 0 36px #d5fcff,
+        0 0 10px #0cf;
+      filter: blur(0.1px);
+      user-select: none;
+      transition: font-size 0.2s;
+    }
+    @media (max-width: 600px) {
+      .title { font-size: 2.1rem; top: 16vh; }
+      .flip-phrase { font-size: 1.15rem; top: 32vh; }
+    }
+    @media (max-width: 370px) {
+      .title { font-size: 1.4rem; }
+      .flip-phrase { font-size: 0.9rem; }
     }
     .flip-phrase {
       position: absolute;
-      top: 45vh;
+      top: 32vh;
       width: 100vw;
       text-align: center;
-      font-size: 1.5rem;
-      color: #fafafa;
-      letter-spacing: 0.12em;
-      text-shadow: 0 0 8px #2fa, 0 0 3px #fff3;
-      font-family: 'Georgia', serif;
+      font-size: 1.6rem;
+      color: #f8ffe7;
+      letter-spacing: 0.11em;
+      text-shadow: 0 0 14px #8be3fc, 0 0 5px #fff3;
       min-height: 2.2em;
       z-index: 2;
-      transition: color 1s;
-      opacity: 0.92;
+      transition: font-size 0.2s;
+      opacity: 0.97;
       user-select: none;
     }
     .footer {
       position: absolute;
-      bottom: 20px;
+      bottom: 22px;
       width: 100vw;
       text-align: center;
       color: #fff;
-      font-size: 1.07rem;
-      letter-spacing: 0.03em;
-      opacity: 0.75;
+      font-size: 1.08rem;
+      opacity: 0.78;
       font-family: 'Georgia', serif;
       z-index: 2;
       pointer-events: none;
+      letter-spacing: 0.025em;
     }
     /* Background runes as stars */
     .rune-star {
       position: absolute;
-      color: rgba(255,255,255,0.08);
-      font-size: 1.3rem;
+      color: rgba(255,255,255,0.09);
+      font-size: 1.25rem;
       user-select: none;
       pointer-events: none;
       z-index: 1;
       animation: runeFade 14s linear infinite;
     }
     @keyframes runeFade {
-      0%   { opacity: 0.1; }
-      40%  { opacity: 0.2; }
-      70%  { opacity: 0.06;}
-      100% { opacity: 0.1;}
+      0%   { opacity: 0.09; }
+      42%  { opacity: 0.20; }
+      82%  { opacity: 0.07;}
+      100% { opacity: 0.09;}
     }
   </style>
 </head>
@@ -81,22 +95,21 @@
   </div>
   <div id="rune-bg"></div>
   <script>
-    // --- Flickering rune stars in the background ---
+    // Flickering rune stars in the background
     const runeSet = ['ᚠ','ᚢ','ᚦ','ᚨ','ᚱ','ᚲ','ᚷ','ᚹ','ᚺ','ᛃ','ᛇ','ᛈ','ᛉ','ᛋ','ᛏ','ᛒ','ᛖ','ᛗ','ᛚ','ᛝ'];
     const runeBG = document.getElementById('rune-bg');
-    for (let i = 0; i < 30; i++) {
+    for (let i = 0; i < 32; i++) {
       const e = document.createElement('div');
       e.className = 'rune-star';
       e.textContent = runeSet[Math.floor(Math.random() * runeSet.length)];
       e.style.left = (Math.random() * 98 + 1) + 'vw';
       e.style.top = (Math.random() * 97 + 1) + 'vh';
-      e.style.fontSize = (Math.random() * 1.4 + 1) + 'rem';
+      e.style.fontSize = (Math.random() * 1.2 + 1) + 'rem';
       e.style.animationDelay = (Math.random()*10)+'s';
       runeBG.appendChild(e);
     }
 
-    // --- Norse-to-English flip effect under the title ---
-    // Phrases to rotate through
+    // Norse-to-English flip effect
     const flipPairs = [
       { runes: 'ᛞᚢ ᚤᚢ ᚠᛁᛖᛚ ᛁᛏ', en: 'Do you feel it?' },
       { runes: 'ᚨᚱᛖ ᚤᚢ ᚱᛖᚨᛞᚤ', en: 'Are you ready?' },
@@ -106,29 +119,27 @@
     const flipEl = document.getElementById('flipPhrase');
     let flipIndex = 0;
     let showingRunes = true;
-    let currentPhrase = '';
-    let flipTimeout = null;
 
     function flipPhrase() {
       let phraseObj = flipPairs[flipIndex];
       let displayStr = showingRunes ? phraseObj.runes : phraseObj.en;
 
-      // Animate flipping one letter at a time for a mystic feel
+      // Animate flipping one letter at a time
       let reveal = '';
       let i = 0;
       function nextLetter() {
         reveal += displayStr[i] || '';
-        flipEl.textContent = reveal + (showingRunes ? '' : ''); // no trailing cursor
+        flipEl.textContent = reveal;
         i++;
         if (i < displayStr.length) {
-          setTimeout(nextLetter, 140); // SLOW for cinematic effect
+          setTimeout(nextLetter, 180); // SLOW for cinematic effect
         } else {
           // Hold for a while before swapping
-          flipTimeout = setTimeout(() => {
+          setTimeout(() => {
             showingRunes = !showingRunes;
             if (!showingRunes) flipIndex = (flipIndex + 1) % flipPairs.length;
             flipPhrase();
-          }, showingRunes ? 2500 : 2800);
+          }, showingRunes ? 2200 : 2700);
         }
       }
       reveal = '';
