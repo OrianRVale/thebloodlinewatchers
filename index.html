@@ -24,14 +24,41 @@
       letter-spacing: 0.07em;
       z-index: 2;
       text-shadow:
-        0 0 60px #7eeeff, /* blue-cyan glow */
+        0 0 60px #7eeeff,
         0 0 120px #fff,
         0 0 18px #fff,
         0 0 36px #d5fcff,
         0 0 10px #0cf;
       filter: blur(0.1px);
       user-select: none;
+      animation: titlepulse 3s infinite alternate;
       transition: font-size 0.2s;
+    }
+    @keyframes titlepulse {
+      0% {
+        text-shadow:
+          0 0 40px #66f2ff,
+          0 0 60px #fff,
+          0 0 10px #b2ffff,
+          0 0 18px #c7faff,
+          0 0 8px #19fff6;
+      }
+      70% {
+        text-shadow:
+          0 0 120px #b5f7ff,
+          0 0 180px #fff,
+          0 0 48px #e8f7ff,
+          0 0 76px #a5ffff,
+          0 0 28px #0cf;
+      }
+      100% {
+        text-shadow:
+          0 0 50px #7eeeff,
+          0 0 120px #fff,
+          0 0 18px #fff,
+          0 0 36px #d5fcff,
+          0 0 10px #0cf;
+      }
     }
     @media (max-width: 600px) {
       .title { font-size: 2.1rem; top: 16vh; }
