@@ -9,96 +9,133 @@
       margin: 0;
       padding: 0;
       height: 100%;
-      background-color: black;
+      background: #0b0b0b;
+      color: #fff;
+      font-family: 'Georgia', serif;
       overflow: hidden;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
-
-    .background {
-      position: fixed;
-      width: 100%;
-      height: 100%;
-      z-index: 1;
-    }
-
     .title {
       position: absolute;
-      top: 35%;
+      top: 35vh;
       width: 100%;
       text-align: center;
-      font-size: 3rem;
+      font-size: 2.7rem;
       font-weight: bold;
-      color: white;
-      text-shadow: 0 0 20px rgba(255, 255, 255, 0.7);
+      color: #fff;
+      text-shadow: 0 0 36px #fff, 0 0 12px #3ef, 0 0 28px #fff;
+      letter-spacing: 0.08em;
       z-index: 2;
     }
-
+    .flip-phrase {
+      position: absolute;
+      top: 45vh;
+      width: 100vw;
+      text-align: center;
+      font-size: 1.5rem;
+      color: #fafafa;
+      letter-spacing: 0.12em;
+      text-shadow: 0 0 8px #2fa, 0 0 3px #fff3;
+      font-family: 'Georgia', serif;
+      min-height: 2.2em;
+      z-index: 2;
+      transition: color 1s;
+      opacity: 0.92;
+      user-select: none;
+    }
     .footer {
       position: absolute;
       bottom: 20px;
-      width: 100%;
+      width: 100vw;
       text-align: center;
-      color: white;
-      font-size: 1rem;
+      color: #fff;
+      font-size: 1.07rem;
+      letter-spacing: 0.03em;
+      opacity: 0.75;
+      font-family: 'Georgia', serif;
       z-index: 2;
+      pointer-events: none;
     }
-
-    .rune {
+    /* Background runes as stars */
+    .rune-star {
       position: absolute;
-      font-size: 1.5rem;
-      color: rgba(255, 255, 255, 0.1);
-      animation: flicker 6s infinite ease-in-out;
+      color: rgba(255,255,255,0.08);
+      font-size: 1.3rem;
+      user-select: none;
+      pointer-events: none;
+      z-index: 1;
+      animation: runeFade 14s linear infinite;
     }
-
-    @keyframes flicker {
-      0%, 100% { opacity: 0.05; }
-      50% { opacity: 0.3; }
-    }
-
-    .phrase {
-      position: absolute;
-      top: 55%;
-      width: 100%;
-      text-align: center;
-      font-size: 1.25rem;
-      color: white;
-      opacity: 0;
-      animation: phraseReveal 20s infinite;
-      z-index: 2;
-    }
-
-    @keyframes phraseReveal {
-      0%, 95%, 100% { opacity: 0; }
-      40%, 60% { opacity: 1; }
+    @keyframes runeFade {
+      0%   { opacity: 0.1; }
+      40%  { opacity: 0.2; }
+      70%  { opacity: 0.06;}
+      100% { opacity: 0.1;}
     }
   </style>
 </head>
 <body>
-  <div class="background" id="runes"></div>
   <div class="title">The Bloodline Watchers</div>
-  <div class="phrase" id="phrase">The Awakening?</div>
-  <div class="footer">Coming soon – a new novel by Orion R. Vale ©</div>
-
+  <div class="flip-phrase" id="flipPhrase"></div>
+  <div class="footer">
+    Coming soon – a new novel by Orion R. Vale ©
+  </div>
+  <div id="rune-bg"></div>
   <script>
-    const phrases = ["Do you feel it?", "Are you ready?", "The Awakening?"];
-    const phraseElement = document.getElementById('phrase');
-
-    setInterval(() => {
-      const index = Math.floor(Math.random() * phrases.length);
-      phraseElement.textContent = phrases[index];
-    }, 20000);
-
-    const runes = ['ᚠ','ᚢ','ᚦ','ᚨ','ᚱ','ᚲ','ᚷ','ᚹ','ᚺ','ᛃ','ᛇ','ᛈ','ᛉ','ᛋ','ᛏ','ᛒ','ᛖ','ᛗ','ᛚ','ᛝ'];
-    const runeContainer = document.getElementById('runes');
-
+    // --- Flickering rune stars in the background ---
+    const runeSet = ['ᚠ','ᚢ','ᚦ','ᚨ','ᚱ','ᚲ','ᚷ','ᚹ','ᚺ','ᛃ','ᛇ','ᛈ','ᛉ','ᛋ','ᛏ','ᛒ','ᛖ','ᛗ','ᛚ','ᛝ'];
+    const runeBG = document.getElementById('rune-bg');
     for (let i = 0; i < 30; i++) {
-      const rune = document.createElement('div');
-      rune.className = 'rune';
-      rune.style.left = Math.random() * 100 + 'vw';
-      rune.style.top = Math.random() * 100 + 'vh';
-      rune.textContent = runes[Math.floor(Math.random() * runes.length)];
-      runeContainer.appendChild(rune);
+      const e = document.createElement('div');
+      e.className = 'rune-star';
+      e.textContent = runeSet[Math.floor(Math.random() * runeSet.length)];
+      e.style.left = (Math.random() * 98 + 1) + 'vw';
+      e.style.top = (Math.random() * 97 + 1) + 'vh';
+      e.style.fontSize = (Math.random() * 1.4 + 1) + 'rem';
+      e.style.animationDelay = (Math.random()*10)+'s';
+      runeBG.appendChild(e);
     }
+
+    // --- Norse-to-English flip effect under the title ---
+    // Phrases to rotate through
+    const flipPairs = [
+      { runes: 'ᛞᚢ ᚤᚢ ᚠᛁᛖᛚ ᛁᛏ', en: 'Do you feel it?' },
+      { runes: 'ᚨᚱᛖ ᚤᚢ ᚱᛖᚨᛞᚤ', en: 'Are you ready?' },
+      { runes: 'ᛏᚺᛖ ᚨᚹᚨᚭᛖᚾᛁᛝ', en: 'The Awakening?' }
+    ];
+
+    const flipEl = document.getElementById('flipPhrase');
+    let flipIndex = 0;
+    let showingRunes = true;
+    let currentPhrase = '';
+    let flipTimeout = null;
+
+    function flipPhrase() {
+      let phraseObj = flipPairs[flipIndex];
+      let displayStr = showingRunes ? phraseObj.runes : phraseObj.en;
+
+      // Animate flipping one letter at a time for a mystic feel
+      let reveal = '';
+      let i = 0;
+      function nextLetter() {
+        reveal += displayStr[i] || '';
+        flipEl.textContent = reveal + (showingRunes ? '' : ''); // no trailing cursor
+        i++;
+        if (i < displayStr.length) {
+          setTimeout(nextLetter, 140); // SLOW for cinematic effect
+        } else {
+          // Hold for a while before swapping
+          flipTimeout = setTimeout(() => {
+            showingRunes = !showingRunes;
+            if (!showingRunes) flipIndex = (flipIndex + 1) % flipPairs.length;
+            flipPhrase();
+          }, showingRunes ? 2500 : 2800);
+        }
+      }
+      reveal = '';
+      i = 0;
+      nextLetter();
+    }
+    flipPhrase();
   </script>
 </body>
 </html>
