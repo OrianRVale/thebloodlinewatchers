@@ -75,7 +75,7 @@
     <em>Coming soon – a new novel that will change everything:<br><strong>The Bloodline Watchers</strong></em>
   </div>
 
-  <!-- Subtle rune flicker script -->
+  <!-- Star-like rune flicker script -->
   <script>
     const canvas = document.getElementById("runes");
     const ctx = canvas.getContext("2d");
@@ -83,33 +83,37 @@
     canvas.height = window.innerHeight;
 
     const runes = "ᚠᚢᚦᚨᚱᚲᚷᚹᚺᚾᛁᛃᛇᛈᛉᛋᛏᛒᛖᛗᛚᛜᛞᛟᛞ".split("");
-    const particles = [];
 
-    for (let i = 0; i < 60; i++) {
-      particles.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        opacity: Math.random() * 0.08 + 0.02,
-        rune: runes[Math.floor(Math.random() * runes.length)],
-        size: Math.random() * 22 + 10,
-        fadeSpeed: Math.random() * 0.001 + 0.0003
-      });
-    }
+    const stars = Array.from({ length: 30 }, () => ({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      rune: runes[Math.floor(Math.random() * runes.length)],
+      alpha: Math.random(),
+      fading: Math.random() < 0.5
+    }));
 
-    function animate() {
+    function draw() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      particles.forEach(p => {
-        ctx.globalAlpha = p.opacity;
+      stars.forEach(star => {
+        ctx.globalAlpha = star.alpha;
         ctx.fillStyle = "#ffffff";
-        ctx.font = `${p.size}px serif`;
-        ctx.fillText(p.rune, p.x, p.y);
-        p.opacity += (Math.random() - 0.5) * p.fadeSpeed;
-        if (p.opacity < 0.02) p.opacity = 0.02;
-        if (p.opacity > 0.1) p.opacity = 0.1;
+        ctx.font = "20px serif";
+        ctx.fillText(star.rune, star.x, star.y);
+
+        if (star.fading) {
+          star.alpha -= 0.005;
+          if (star.alpha < 0.05) {
+            star.fading = false;
+            star.rune = runes[Math.floor(Math.random() * runes.length)];
+          }
+        } else {
+          star.alpha += 0.005;
+          if (star.alpha > 0.2) star.fading = true;
+        }
       });
-      requestAnimationFrame(animate);
+      requestAnimationFrame(draw);
     }
-    animate();
+    draw();
   </script>
 
   <!-- GoatCounter analytics -->
