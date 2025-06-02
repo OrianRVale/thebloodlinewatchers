@@ -5,43 +5,32 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>The Bloodline Watchers</title>
   <style>
-    body {
+    html, body {
       margin: 0;
       padding: 0;
-      background: #0b0b0b;
-      color: #f5f5f5;
-      font-family: "Georgia", serif;
+      height: 100%;
+      background-color: black;
       overflow: hidden;
-      position: relative;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
 
-    .hero {
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
+    .background {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+    }
+
+    .title {
+      position: absolute;
+      top: 35%;
+      width: 100%;
       text-align: center;
-      position: relative;
+      font-size: 3rem;
+      font-weight: bold;
+      color: white;
+      text-shadow: 0 0 20px rgba(255, 255, 255, 0.7);
       z-index: 2;
-    }
-
-    .hero h1 {
-      font-size: 2.5rem;
-      margin: 0;
-      padding: 0;
-      color: #fff;
-      text-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
-      animation: glow 2.5s ease-in-out infinite alternate;
-    }
-
-    @keyframes glow {
-      from {
-        text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
-      }
-      to {
-        text-shadow: 0 0 30px rgba(255, 255, 255, 0.8);
-      }
     }
 
     .footer {
@@ -49,75 +38,67 @@
       bottom: 20px;
       width: 100%;
       text-align: center;
-      font-size: 1.1em;
-      color: rgba(255, 255, 255, 0.7);
-      font-family: Georgia, serif;
+      color: white;
+      font-size: 1rem;
       z-index: 2;
     }
 
-    canvas {
-      position: fixed;
-      top: 0;
-      left: 0;
+    .rune {
+      position: absolute;
+      font-size: 1.5rem;
+      color: rgba(255, 255, 255, 0.1);
+      animation: flicker 6s infinite ease-in-out;
+    }
+
+    @keyframes flicker {
+      0%, 100% { opacity: 0.05; }
+      50% { opacity: 0.3; }
+    }
+
+    .phrase {
+      position: absolute;
+      top: 55%;
       width: 100%;
-      height: 100%;
-      z-index: 1;
-      pointer-events: none;
+      text-align: center;
+      font-size: 1.25rem;
+      color: white;
+      opacity: 0;
+      animation: phraseReveal 20s infinite;
+      z-index: 2;
+    }
+
+    @keyframes phraseReveal {
+      0%, 95%, 100% { opacity: 0; }
+      40%, 60% { opacity: 1; }
     }
   </style>
 </head>
 <body>
-  <canvas id="runes"></canvas>
-  <div class="hero">
-    <h1>The Bloodline Watchers</h1>
-  </div>
-  <div class="footer">
-    <em>Coming soon – a new novel that will change everything:<br><strong>The Bloodline Watchers</strong></em>
-  </div>
+  <div class="background" id="runes"></div>
+  <div class="title">The Bloodline Watchers</div>
+  <div class="phrase" id="phrase">The Awakening?</div>
+  <div class="footer">Coming soon – a new novel by Orion R. Vale ©</div>
 
-  <!-- Star-like rune flicker script -->
   <script>
-    const canvas = document.getElementById("runes");
-    const ctx = canvas.getContext("2d");
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    const phrases = ["Do you feel it?", "Are you ready?", "The Awakening?"];
+    const phraseElement = document.getElementById('phrase');
 
-    const runes = "ᚠᚢᚦᚨᚱᚲᚷᚹᚺᚾᛁᛃᛇᛈᛉᛋᛏᛒᛖᛗᛚᛜᛞᛟᛞ".split("");
+    setInterval(() => {
+      const index = Math.floor(Math.random() * phrases.length);
+      phraseElement.textContent = phrases[index];
+    }, 20000);
 
-    const stars = Array.from({ length: 30 }, () => ({
-      x: Math.random() * canvas.width,
-      y: Math.random() * canvas.height,
-      rune: runes[Math.floor(Math.random() * runes.length)],
-      alpha: Math.random(),
-      fading: Math.random() < 0.5
-    }));
+    const runes = ['ᚠ','ᚢ','ᚦ','ᚨ','ᚱ','ᚲ','ᚷ','ᚹ','ᚺ','ᛃ','ᛇ','ᛈ','ᛉ','ᛋ','ᛏ','ᛒ','ᛖ','ᛗ','ᛚ','ᛝ'];
+    const runeContainer = document.getElementById('runes');
 
-    function draw() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      stars.forEach(star => {
-        ctx.globalAlpha = star.alpha;
-        ctx.fillStyle = "#ffffff";
-        ctx.font = "20px serif";
-        ctx.fillText(star.rune, star.x, star.y);
-
-        if (star.fading) {
-          star.alpha -= 0.005;
-          if (star.alpha < 0.05) {
-            star.fading = false;
-            star.rune = runes[Math.floor(Math.random() * runes.length)];
-          }
-        } else {
-          star.alpha += 0.005;
-          if (star.alpha > 0.2) star.fading = true;
-        }
-      });
-      requestAnimationFrame(draw);
+    for (let i = 0; i < 30; i++) {
+      const rune = document.createElement('div');
+      rune.className = 'rune';
+      rune.style.left = Math.random() * 100 + 'vw';
+      rune.style.top = Math.random() * 100 + 'vh';
+      rune.textContent = runes[Math.floor(Math.random() * runes.length)];
+      runeContainer.appendChild(rune);
     }
-    draw();
   </script>
-
-  <!-- GoatCounter analytics -->
-  <script data-goatcounter="https://thebloodlinewatchers.goatcounter.com/count"
-    async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>
