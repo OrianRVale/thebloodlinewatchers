@@ -35,6 +35,10 @@
       height: 1.4em;
     }
 
+    .small {
+      font-size: 1rem;
+    }
+
     footer {
       position: absolute;
       bottom: 10px;
@@ -67,16 +71,30 @@
   <script>
     const runeText = document.getElementById('runeText');
     const messages = [
-      "ᚦᚱᛁᛉᛗ", "The chosen one remembers.",
-      "ᚱᛖᛗᛖᛗᛒᛖᚱ", "Do you feel it?",
-      "ᚨᚱᛖ ᛃᛟᚢ ᚱᛖᚨᛞᛃ?", "The Awakening.",
+      "ᚦᚱᛁᛉᛗ", 
+      "The chosen one remembers.",
+      "ᚱᛖᛗᛖᛗᛒᛖᚱ", 
+      "Do you feel it?",
+      "ᚨᚱᛖ ᛃᛟᚢ ᚱᛖᚨᛞᛃ?", 
+      "The Awakening.",
+      "ᛋᛟᛗᛖᛏᚻᛁᛝ ᛁᛋ ᚹᚨᛏᚲᚻᛁᛝ..." // <- "Something is watching..." (in runes)
     ];
     let index = 0;
 
-    setInterval(() => {
-      runeText.textContent = messages[index];
+    function updateText() {
+      const msg = messages[index];
+      runeText.classList.remove('small');
+      runeText.textContent = msg;
+
+      if (msg === "Something is watching...") {
+        runeText.classList.add('small'); // Apply smaller style
+      }
+
       index = (index + 1) % messages.length;
-    }, 4000);
+    }
+
+    setInterval(updateText, 4000);
+    updateText();
   </script>
 
   <!-- GoatCounter Analytics -->
