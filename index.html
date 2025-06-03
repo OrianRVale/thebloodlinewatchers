@@ -24,8 +24,16 @@
     h1.glow {
       font-size: 3rem;
       color: #fff;
-      text-shadow: 0 0 15px white, 0 0 30px white;
-      margin-bottom: 2rem;
+      animation: pulseGlow 4s ease-in-out infinite;
+    }
+
+    @keyframes pulseGlow {
+      0%, 100% {
+        text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #e600ff;
+      }
+      50% {
+        text-shadow: 0 0 10px #fff, 0 0 20px #e600ff, 0 0 30px #ff00ff;
+      }
     }
 
     .rune-text {
@@ -33,6 +41,7 @@
       color: #ccc;
       letter-spacing: 0.1em;
       height: 1.4em;
+      min-height: 24px;
     }
 
     footer {
@@ -43,21 +52,12 @@
       font-size: 0.9rem;
       color: #666;
     }
-
-    a {
-      color: #9e9eff;
-      text-decoration: none;
-    }
-
-    a:hover {
-      text-decoration: underline;
-    }
   </style>
 </head>
 <body>
   <div class="centered">
     <h1 class="glow">The Bloodline Watchers</h1>
-    <div class="rune-text" id="runeText">ᚦᚱᛁᛉᛗ</div>
+    <div class="rune-text" id="runeText"></div>
   </div>
 
   <footer>
@@ -65,27 +65,54 @@
   </footer>
 
   <script>
-    const runeText = document.getElementById('runeText');
-    const messages = [
-      "ᚦᚱᛁᛉᛗ", 
-      "The chosen one remembers.",
-      "ᚱᛖᛗᛖᛗᛒᛖᚱ", 
-      "Do you feel it?",
-      "ᚨᚱᛖ ᛃᛟᚢ ᚱᛖᚨᛞᛃ?", 
-      "The Awakening.",
-      "ᛋᛟᛗᛖᛏᚻᛁᛝ ᛁᛋ ᚹᚨᛏᚲᚻᛁᛝ...",
-      "Something is watching..."
+    const runeText = document.getElementById("runeText");
+    const phrases = [
+      "They are awakening",
+      "The veil is thinning",
+      "Some got through",
+      "Something is watching...",
+      "The chosen one remembers."
     ];
-    let index = 0;
 
-    function updateText() {
-      const msg = messages[index];
-      runeText.textContent = msg;
-      index = (index + 1) % messages.length;
+    const runes = [
+      "ᚠ", "ᚢ", "ᚦ", "ᚨ", "ᚱ", "ᚲ", "ᚷ", "ᚹ", "ᚺ", "ᚾ", "ᛁ", "ᛃ",
+      "ᛇ", "ᛈ", "ᛉ", "ᛋ", "ᛏ", "ᛒ", "ᛖ", "ᛗ", "ᛚ", "ᛝ", "ᛞ", "ᛟ"
+    ];
+
+    let phraseIndex = 0;
+
+    function flipLetters(phrase) {
+      let display = new Array(phrase.length).fill(" ");
+      let interval = setInterval(() => {
+        for (let i = 0; i < phrase.length; i++) {
+          if (display[i] !== phrase[i]) {
+            display[i] = runes[Math.floor(Math.random() * runes.length)];
+          }
+        }
+        runeText.textContent = display.join("");
+
+        if (display.join("") === phrase) {
+          clearInterval(interval);
+          setTimeout(() => {
+            phraseIndex = (phraseIndex + 1) % phrases.length;
+            revealNextPhrase();
+          }, 3000);
+        } else {
+          for (let i = 0; i < phrase.length; i++) {
+            if (Math.random() < 0.2) {
+              display[i] = phrase[i];
+            }
+          }
+        }
+      }, 100);
     }
 
-    setInterval(updateText, 4000);
-    updateText();
+    function revealNextPhrase() {
+      const nextPhrase = phrases[phraseIndex];
+      flipLetters(nextPhrase);
+    }
+
+    revealNextPhrase();
   </script>
 
   <!-- GoatCounter Analytics -->
