@@ -1,204 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>The Bloodline Watchers</title>
   <style>
-    html, body {
-      margin: 0; padding: 0; height: 100%;
-      background: #0b0b0b;
-      color: #fff;
+    body {
+      margin: 0;
+      padding: 0;
+      background: black;
+      color: white;
       font-family: 'Georgia', serif;
-      min-height: 100vh;
       overflow: hidden;
-    }
-    .centerer {
-      position: absolute;
-      left: 0; top: 50%;
-      width: 100vw;
       display: flex;
       flex-direction: column;
-      align-items: center;
       justify-content: center;
-      transform: translateY(-50%);
-      z-index: 2;
-      pointer-events: none;
+      align-items: center;
+      height: 100vh;
     }
-    .title {
-      width: 100vw;
+
+    h1 {
+      font-size: 3em;
       text-align: center;
-      font-size: 3.2rem;
-      font-weight: bold;
-      color: #fff;
-      letter-spacing: 0.07em;
-      user-select: none;
-      text-shadow:
-        0 0 18px #0ff,
-        0 0 60px #fff,
-        0 0 18px #fff,
-        0 0 42px #d5fcff,
-        0 0 14px #0cf;
-      filter: blur(0.1px);
-      animation: pulseGlow 2.8s cubic-bezier(.45,0,.55,1) infinite;
-      transition: font-size 0.2s;
+      color: white;
+      text-shadow: 0 0 10px #ffffffbb;
     }
-    @keyframes pulseGlow {
-      0% {
-        text-shadow:
-          0 0 2px #0ff,
-          0 0 6px #00f7ff,
-          0 0 0px #fff,
-          0 0 0px #0cf;
-        color: #c9f9ff;
-      }
-      10% {
-        text-shadow:
-          0 0 28px #54e8ff,
-          0 0 68px #fff,
-          0 0 38px #aeeeff,
-          0 0 13px #00d6f7;
-        color: #fff;
-      }
-      50% {
-        text-shadow:
-          0 0 110px #fff,
-          0 0 180px #0ff,
-          0 0 60px #fff,
-          0 0 23px #0cf;
-        color: #fff;
-      }
-      90% {
-        text-shadow:
-          0 0 28px #54e8ff,
-          0 0 68px #fff,
-          0 0 38px #aeeeff,
-          0 0 13px #00d6f7;
-        color: #fff;
-      }
-      100% {
-        text-shadow:
-          0 0 2px #0ff,
-          0 0 6px #00f7ff,
-          0 0 0px #fff,
-          0 0 0px #0cf;
-        color: #c9f9ff;
-      }
-    }
-    .flip-phrase {
-      width: 100vw;
-      text-align: center;
-      font-size: 1.6rem;
-      color: #f8ffe7;
-      letter-spacing: 0.11em;
-      text-shadow: 0 0 14px #8be3fc, 0 0 5px #fff3;
-      min-height: 2.2em;
-      margin-top: 1.3em;
-      transition: font-size 0.2s;
-      opacity: 0.97;
-      user-select: none;
-      pointer-events: none;
-    }
-    @media (max-width: 600px) {
-      .title { font-size: 2.1rem; }
-      .flip-phrase { font-size: 1.15rem; }
-    }
-    @media (max-width: 370px) {
-      .title { font-size: 1.2rem; }
-      .flip-phrase { font-size: 0.89rem; }
-    }
-    .footer {
+
+    .whispers {
       position: absolute;
-      bottom: 22px;
-      width: 100vw;
+      bottom: 100px;
+      font-size: 1.2em;
+      opacity: 0;
+      transition: opacity 2s ease;
       text-align: center;
-      color: #fff;
-      font-size: 1.08rem;
-      opacity: 0.78;
-      font-family: 'Georgia', serif;
-      z-index: 2;
-      pointer-events: none;
-      letter-spacing: 0.025em;
+      max-width: 80%;
     }
-    .rune-star {
-      position: absolute;
-      color: rgba(255,255,255,0.09);
-      font-size: 1.25rem;
-      user-select: none;
-      pointer-events: none;
-      z-index: 1;
-      animation: runeFade 14s linear infinite;
+
+    .active {
+      opacity: 1 !important;
     }
-    @keyframes runeFade {
-      0%   { opacity: 0.09; }
-      42%  { opacity: 0.20; }
-      82%  { opacity: 0.07;}
-      100% { opacity: 0.09;}
+
+    .rune {
+      font-family: 'Courier New', monospace;
+      font-size: 1.2em;
+      letter-spacing: 2px;
+      color: #888;
+      opacity: 1;
+      transition: opacity 1s ease;
     }
   </style>
 </head>
 <body>
-  <div class="centerer">
-    <div class="title">The Bloodline Watchers</div>
-    <div class="flip-phrase" id="flipPhrase"></div>
-  </div>
-  <div class="footer">
-    Coming soon – a new novel by Orion R. Vale ©
-  </div>
-  <div id="rune-bg"></div>
-  <script>
-    // Flickering rune stars in the background
-    const runeSet = ['ᚠ','ᚢ','ᚦ','ᚨ','ᚱ','ᚲ','ᚷ','ᚹ','ᚺ','ᛃ','ᛇ','ᛈ','ᛉ','ᛋ','ᛏ','ᛒ','ᛖ','ᛗ','ᛚ','ᛝ'];
-    const runeBG = document.getElementById('rune-bg');
-    for (let i = 0; i < 32; i++) {
-      const e = document.createElement('div');
-      e.className = 'rune-star';
-      e.textContent = runeSet[Math.floor(Math.random() * runeSet.length)];
-      e.style.left = (Math.random() * 98 + 1) + 'vw';
-      e.style.top = (Math.random() * 97 + 1) + 'vh';
-      e.style.fontSize = (Math.random() * 1.2 + 1) + 'rem';
-      e.style.animationDelay = (Math.random()*10)+'s';
-      runeBG.appendChild(e);
-    }
+  <h1>The Bloodline Watchers</h1>
+  <div class="whispers rune" id="rune"></div>
+  <div class="whispers" id="english"></div>
 
-    // Norse-to-English flip effect
-    const flipPairs = [
-      { runes: 'ᛞᚢ ᚤᚢ ᚠᛁᛖᛚ ᛁᛏ', en: 'Do you feel it?' },
-      { runes: 'ᚨᚱᛖ ᚤᚢ ᚱᛖᚨᛞᚤ', en: 'Are you ready?' },
-      { runes: 'ᛏᚺᛖ ᚨᚹᚨᚭᛖᚾᛁᛝ', en: 'The Awakening?' }
+  <script>
+    const runes = [
+      'ᚢᛟᚢ ᚹᛖᚱᛖ ᚾᛖᚢᛖᚱ ᛃᚢᛋᛏ ᚺᚢᛗᚨᚾ',
+      'ᚹᚺᛖᚾ ᛏᚺᛖ ᛒᛚᛟᛟᛞᛚᛁᚾᛖ ᛋᛏᛁᚱᛋ, ᛋᛟ ᛞᛟᛖᛋ ᛏᚺᛖ ᚹᛟᚱᛚᛞ',
+      'ᛏᚺᛖ ᚹᛖᛁᛚᛋ ᚨᚱᛖ ᛚᛁᚠᛏᛁᚾᚷ. ᛋᛟᛗᛖᛏᚺᛁᚾᚷ ᚨᚾᚲᛁᛖᚾᛏ ᛁᛋ ᚹᚨᛏᚲᚺᛁᚾᚷ.'
     ];
 
-    const flipEl = document.getElementById('flipPhrase');
-    let flipIndex = 0;
-    let showingRunes = true;
+    const english = [
+      'You were never just human.',
+      'When the bloodline stirs, so does the world.',
+      'The veils are lifting. Something ancient is watching.'
+    ];
 
-    function flipPhrase() {
-      let phraseObj = flipPairs[flipIndex];
-      let displayStr = showingRunes ? phraseObj.runes : phraseObj.en;
+    let index = 0;
+    const runeDiv = document.getElementById('rune');
+    const englishDiv = document.getElementById('english');
 
-      // Animate flipping one letter at a time
-      let reveal = '';
-      let i = 0;
-      function nextLetter() {
-        reveal += displayStr[i] || '';
-        flipEl.textContent = reveal;
-        i++;
-        if (i < displayStr.length) {
-          setTimeout(nextLetter, 180); // SLOW for cinematic effect
-        } else {
-          // Hold for a while before swapping
-          setTimeout(() => {
-            showingRunes = !showingRunes;
-            if (!showingRunes) flipIndex = (flipIndex + 1) % flipPairs.length;
-            flipPhrase();
-          }, showingRunes ? 2200 : 2700);
-        }
-      }
-      reveal = '';
-      i = 0;
-      nextLetter();
+    function showWhisper() {
+      runeDiv.textContent = runes[index];
+      englishDiv.textContent = '';
+      runeDiv.classList.add('active');
+      setTimeout(() => {
+        runeDiv.classList.remove('active');
+        englishDiv.textContent = english[index];
+        englishDiv.classList.add('active');
+        setTimeout(() => {
+          englishDiv.classList.remove('active');
+          index = (index + 1) % runes.length;
+          setTimeout(showWhisper, 1000);
+        }, 4000);
+      }, 2000);
     }
-    flipPhrase();
+
+    showWhisper();
   </script>
 </body>
 </html>
