@@ -23,7 +23,17 @@
       font-size: 3em;
       text-align: center;
       color: white;
-      text-shadow: 0 0 10px #ffffffbb;
+      animation: pulseGlow 4s ease-in-out infinite;
+      text-shadow: 0 0 15px #ffffff, 0 0 30px #aaa;
+    }
+
+    @keyframes pulseGlow {
+      0%, 100% {
+        text-shadow: 0 0 8px #ffffff, 0 0 15px #aaa;
+      }
+      50% {
+        text-shadow: 0 0 20px #ffffff, 0 0 40px #fff;
+      }
     }
 
     .whispers {
@@ -42,11 +52,9 @@
 
     .rune {
       font-family: 'Courier New', monospace;
-      font-size: 1.2em;
       letter-spacing: 2px;
-      color: #888;
-      opacity: 1;
-      transition: opacity 1s ease;
+      font-size: 1.2em;
+      color: #aaa;
     }
   </style>
 </head>
@@ -76,10 +84,12 @@
       runeDiv.textContent = runes[index];
       englishDiv.textContent = '';
       runeDiv.classList.add('active');
+
       setTimeout(() => {
         runeDiv.classList.remove('active');
         englishDiv.textContent = english[index];
         englishDiv.classList.add('active');
+
         setTimeout(() => {
           englishDiv.classList.remove('active');
           index = (index + 1) % runes.length;
