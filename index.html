@@ -24,7 +24,7 @@
     h1.glow {
       font-size: 3rem;
       color: #fff;
-      text-shadow: 0 0 20px #e600ff, 0 0 30px #8a2be2, 0 0 40px #8000ff;
+      text-shadow: 0 0 15px white, 0 0 30px white;
       margin-bottom: 2rem;
     }
 
@@ -33,10 +33,6 @@
       color: #ccc;
       letter-spacing: 0.1em;
       height: 1.4em;
-    }
-
-    .small {
-      font-size: 1rem;
     }
 
     footer {
@@ -65,7 +61,7 @@
   </div>
 
   <footer>
-    <p>© Orion R. Vale • Chapter 1 reveal coming in August • Visit: <a href="https://orianrvale.github.io/thebloodlinewatchers" target="_blank">Website</a></p>
+    <p>© Orion R. Vale • Chapter 1 reveal coming in August</p>
   </footer>
 
   <script>
@@ -77,19 +73,14 @@
       "Do you feel it?",
       "ᚨᚱᛖ ᛃᛟᚢ ᚱᛖᚨᛞᛃ?", 
       "The Awakening.",
-      "ᛋᛟᛗᛖᛏᚻᛁᛝ ᛁᛋ ᚹᚨᛏᚲᚻᛁᛝ..." // <- "Something is watching..." (in runes)
+      "ᛋᛟᛗᛖᛏᚻᛁᛝ ᛁᛋ ᚹᚨᛏᚲᚻᛁᛝ...",
+      "Something is watching..."
     ];
     let index = 0;
 
     function updateText() {
       const msg = messages[index];
-      runeText.classList.remove('small');
       runeText.textContent = msg;
-
-      if (msg === "Something is watching...") {
-        runeText.classList.add('small'); // Apply smaller style
-      }
-
       index = (index + 1) % messages.length;
     }
 
