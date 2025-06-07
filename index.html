@@ -13,7 +13,6 @@
     <h1 class="main-title angelic-glow">The Bloodline Watchers</h1>
 
     <div class="rune-field">
-      <div class="triangle-logo"></div>
       <div class="rune-message" id="runeText"></div>
     </div>
 
@@ -24,11 +23,11 @@
 
   <script>
     const phrases = [
-      "The glyphs remember.",
-      "The veil is thinning.",
-      "He is waking.",
-      "We were never alone.",
-      "The watchers return."
+      "Only the marked can hear.",
+      "This was never a story.",
+      "The veil is not what you think.",
+      "They promised silence. They lied.",
+      "The watchers wait in light and shadow."
     ];
 
     const runeMap = {
@@ -39,7 +38,6 @@
     };
 
     const runeTextEl = document.getElementById("runeText");
-    const triangle = document.querySelector(".triangle-logo");
 
     let phraseIndex = 0;
 
@@ -48,9 +46,6 @@
     }
 
     function revealNextPhrase() {
-      triangle.classList.add('active');
-      setTimeout(() => triangle.classList.remove('active'), 4000);
-
       const phrase = phrases[phraseIndex];
       runeTextEl.innerHTML = "";
 
@@ -63,7 +58,7 @@
         runeTextEl.appendChild(span);
 
         if (finalChar !== " ") {
-          setTimeout(() => rotateToFinal(span), 1500 + Math.random() * 3000);
+          setTimeout(() => rotateToFinal(span), 1800 + Math.random() * 3000);
         } else {
           span.style.opacity = 1;
         }
@@ -78,7 +73,7 @@
         span.textContent = span.dataset.final;
         span.classList.remove("flip");
         span.style.opacity = 1;
-      }, 500);
+      }, 600);
     }
 
     revealNextPhrase();
