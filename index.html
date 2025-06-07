@@ -11,7 +11,7 @@
 
   <div class="container">
     <div class="triangle-overlay"></div>
-    <h1 class="main-title">The Bloodline Watchers</h1>
+    <h1 class="main-title pulse-glow">The Bloodline Watchers</h1>
     <div class="rune-message" id="runeText"></div>
     <footer class="footer">
       © Orion R. Vale. Chapter One reveal preview coming in August 2025.
@@ -54,7 +54,7 @@
 
     function animateRune(span, finalChar) {
       let flips = 0;
-      const maxFlips = 15 + Math.floor(Math.random() * 10);
+      const maxFlips = 25 + Math.floor(Math.random() * 15);
       const interval = setInterval(() => {
         if (flips < maxFlips) {
           span.textContent = randomRune();
@@ -62,12 +62,14 @@
         } else {
           clearInterval(interval);
           span.textContent = finalChar;
+          span.style.transition = "opacity 0.6s ease-in";
+          span.style.opacity = 1;
         }
-      }, 60);
+      }, 120);
     }
 
     revealNextPhrase();
-    setInterval(revealNextPhrase, 8000);
+    setInterval(revealNextPhrase, 10000);
   </script>
 </body>
 </html>
