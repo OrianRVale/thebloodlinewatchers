@@ -4,132 +4,70 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>The Bloodline Watchers</title>
-  <link href="https://fonts.googleapis.com/css2?family=Spectral+SC:wght@700&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      background-color: black;
-      color: white;
-      font-family: 'Share Tech Mono', monospace;
-      overflow: hidden;
-    }
-
-    .center {
-      position: absolute;
-      top: 45%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      text-align: center;
-    }
-
-    h1 {
-      font-family: 'Spectral SC', serif;
-      font-size: 3.5em;
-      color: #fff;
-      text-shadow: 0 0 4px white, 0 0 10px #c9a94e;
-      animation: pulse 4s infinite;
-      letter-spacing: 0.05em;
-    }
-
-    @keyframes pulse {
-      0%, 100% {
-        text-shadow: 0 0 4px white, 0 0 10px #c9a94e;
-      }
-      50% {
-        text-shadow: 0 0 8px white, 0 0 18px #c9a94e;
-      }
-    }
-
-    #fliptext {
-      margin-top: 20px;
-      opacity: 0.85;
-      transition: opacity 1.5s ease-in-out;
-    }
-
-    .flip {
-      display: inline-block;
-      overflow: hidden;
-      vertical-align: bottom;
-      width: 1ch;
-      opacity: 0;
-      animation: flipLetter 3s ease-in-out forwards;
-    }
-
-    .fade-out {
-      animation: fadeSmoke 4s ease-in 3s forwards;
-    }
-
-    @keyframes flipLetter {
-      0% { opacity: 0; transform: rotateY(0); }
-      50% { opacity: 0.3; transform: rotateY(180deg); }
-      100% { opacity: 1; transform: rotateY(360deg); }
-    }
-
-    @keyframes fadeSmoke {
-      0% { opacity: 1; filter: blur(0); transform: translateY(0); }
-      100% { opacity: 0; filter: blur(4px); transform: translateY(-20px); }
-    }
-
-    footer {
-      position: absolute;
-      bottom: 20px;
-      width: 100%;
-      text-align: center;
-      font-size: 0.9em;
-      color: #aaa;
-    }
-  </style>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="center">
-    <h1>The Bloodline Watchers</h1>
-    <div id="fliptext"></div>
+  <div class="background"></div>
+
+  <div class="container">
+    <div class="triangle-overlay"></div>
+    <h1 class="main-title">The Bloodline Watchers</h1>
+    <div class="rune-message" id="runeText"></div>
+    <footer class="footer">
+      © Orion R. Vale. Chapter One reveal preview coming in August 2025.
+    </footer>
   </div>
 
-  <footer>
-    © Orion R. Vale • Chapter 1 reveal coming in August
-  </footer>
-
   <script>
-    const phrases = [
-      'They are awakening.',
-      'The veil has weakened.',
-      'Some got through.',
-      'They are here.',
-      'You must be ready.',
-      'Remember who you are.'
+    const runePhrases = [
+      "The glyphs remember.",
+      "The veil is thinning.",
+      "He is waking.",
+      "We were never alone.",
+      "The watchers return."
     ];
 
-    const runeSet = 'ᚠᚢᚦᚨᚱᚲᚷᚹᚺᚾᛁᛃᛇᛈᛉᛋᛏᛒᛖᛗᛚᛜᛞᛟ';
+    const runes = "ᚠᚢᚦᚨᚱᚲᚷᚹᚺᚾᛁᛃᛇᛈᛉᛋᛏᛒᛖᛗᛚᛝᛟᛞᛜ".split("");
+    const runeTextEl = document.getElementById("runeText");
+
+    let phraseIndex = 0;
 
     function randomRune() {
-      return runeSet[Math.floor(Math.random() * runeSet.length)];
+      return runes[Math.floor(Math.random() * runes.length)];
     }
 
-    function showPhrase(phrase, container, delay = 200) {
-      container.innerHTML = '';
-      const isSmoky = phrase === 'Remember who you are.';
-      [...phrase].forEach((char, index) => {
-        const span = document.createElement('span');
-        span.className = 'flip' + (isSmoky ? ' fade-out' : '');
-        span.textContent = randomRune();
-        container.appendChild(span);
-        setTimeout(() => {
-          span.textContent = char;
-        }, delay * index + Math.random() * 100);
-      });
+    function revealNextPhrase() {
+      const phrase = runePhrases[phraseIndex];
+      runeTextEl.innerHTML = "";
+      for (let i = 0; i < phrase.length; i++) {
+        const span = document.createElement("span");
+        span.textContent = " ";
+        runeTextEl.appendChild(span);
+        if (phrase[i] !== " ") {
+          animateRune(span, phrase[i]);
+        } else {
+          span.textContent = " ";
+        }
+      }
+      phraseIndex = (phraseIndex + 1) % runePhrases.length;
     }
 
-    const container = document.getElementById('fliptext');
-    let i = 0;
-    showPhrase(phrases[i], container);
-    setInterval(() => {
-      i = (i + 1) % phrases.length;
-      showPhrase(phrases[i], container);
-    }, 7000);
+    function animateRune(span, finalChar) {
+      let flips = 0;
+      const maxFlips = 15 + Math.floor(Math.random() * 10);
+      const interval = setInterval(() => {
+        if (flips < maxFlips) {
+          span.textContent = randomRune();
+          flips++;
+        } else {
+          clearInterval(interval);
+          span.textContent = finalChar;
+        }
+      }, 60);
+    }
+
+    revealNextPhrase();
+    setInterval(revealNextPhrase, 8000);
   </script>
-
-  <script data-goatcounter="https://bloodlinewatchers.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>
