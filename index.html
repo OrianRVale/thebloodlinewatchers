@@ -10,18 +10,20 @@
   <div class="background"></div>
 
   <div class="container">
-    <h1 class="main-title ghost-glow">The Bloodline Watchers</h1>
+    <h1 class="main-title angelic-glow">The Bloodline Watchers</h1>
+
     <div class="rune-field">
-      <div class="triangle-underlay"></div>
+      <div class="triangle-logo"></div>
       <div class="rune-message" id="runeText"></div>
     </div>
+
     <footer class="footer">
       © Orion R. Vale. Chapter One reveal preview coming in August 2025.
     </footer>
   </div>
 
   <script>
-    const runePhrases = [
+    const phrases = [
       "The glyphs remember.",
       "The veil is thinning.",
       "He is waking.",
@@ -29,59 +31,58 @@
       "The watchers return."
     ];
 
-    const runes = "ᚠᚢᚦᚨᚱᚲᚷᚹᚺᚾᛁᛃᛇᛈᛉᛋᛏᛒᛖᛗᛚᛝᛟᛞᛜ".split("");
+    const runeMap = {
+      A: "ᚨ", B: "ᛒ", C: "ᚲ", D: "ᛞ", E: "ᛖ", F: "ᚠ", G: "ᚷ",
+      H: "ᚺ", I: "ᛁ", J: "ᛃ", K: "ᚲ", L: "ᛚ", M: "ᛗ", N: "ᚾ",
+      O: "ᛟ", P: "ᛈ", Q: "ᛩ", R: "ᚱ", S: "ᛋ", T: "ᛏ", U: "ᚢ",
+      V: "ᚡ", W: "ᚹ", X: "ᛪ", Y: "ᛇ", Z: "ᛉ", ".": ".", " ": " "
+    };
+
     const runeTextEl = document.getElementById("runeText");
-    const triangle = document.querySelector('.triangle-underlay');
+    const triangle = document.querySelector(".triangle-logo");
 
     let phraseIndex = 0;
 
-    function randomRune() {
-      return runes[Math.floor(Math.random() * runes.length)];
+    function getRune(char) {
+      return runeMap[char.toUpperCase()] || char;
     }
 
     function revealNextPhrase() {
       triangle.classList.add('active');
-      setTimeout(() => triangle.classList.remove('active'), 3000);
+      setTimeout(() => triangle.classList.remove('active'), 4000);
 
-      const phrase = runePhrases[phraseIndex];
+      const phrase = phrases[phraseIndex];
       runeTextEl.innerHTML = "";
 
       for (let i = 0; i < phrase.length; i++) {
         const span = document.createElement("span");
-        span.textContent = " ";
+        const finalChar = phrase[i];
+        const runeChar = getRune(finalChar);
+        span.textContent = runeChar;
+        span.dataset.final = finalChar;
         runeTextEl.appendChild(span);
 
-        if (phrase[i] !== " ") {
-          animateRune(span, phrase[i]);
+        if (finalChar !== " ") {
+          setTimeout(() => rotateToFinal(span), 1500 + Math.random() * 3000);
         } else {
-          span.textContent = " ";
           span.style.opacity = 1;
         }
       }
 
-      phraseIndex = (phraseIndex + 1) % runePhrases.length;
+      phraseIndex = (phraseIndex + 1) % phrases.length;
     }
 
-    function animateRune(span, finalChar) {
-      let flips = 0;
-      const maxFlips = 30 + Math.floor(Math.random() * 20);
-      const intervalDelay = 100 + Math.floor(Math.random() * 100);
-
-      const interval = setInterval(() => {
-        if (flips < maxFlips) {
-          span.textContent = randomRune();
-          flips++;
-        } else {
-          clearInterval(interval);
-          span.textContent = finalChar;
-          span.style.transition = "opacity 0.8s ease-in";
-          span.style.opacity = 1;
-        }
-      }, intervalDelay);
+    function rotateToFinal(span) {
+      span.classList.add("flip");
+      setTimeout(() => {
+        span.textContent = span.dataset.final;
+        span.classList.remove("flip");
+        span.style.opacity = 1;
+      }, 500);
     }
 
     revealNextPhrase();
-    setInterval(revealNextPhrase, 12000);
+    setInterval(revealNextPhrase, 13000);
   </script>
 </body>
 </html>
