@@ -7,6 +7,15 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  overflow-x: hidden;
+}
+
+canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  pointer-events: none;
 }
 
 .container {
@@ -17,6 +26,8 @@ body {
   justify-content: center;
   align-items: center;
   padding: 2rem;
+  z-index: 1;
+  position: relative;
 }
 
 h1.glow {
@@ -41,12 +52,17 @@ h1.glow {
   letter-spacing: 0.2em;
   font-family: 'Courier New', monospace;
   color: #bbb;
-  margin-bottom: 2rem;
+  margin-top: 1rem;
 }
 
-.footer-center {
+footer {
   text-align: center;
+  width: 100%;
   padding: 1rem;
   font-size: 0.95rem;
   color: #ccc;
+  position: fixed;
+  bottom: 0;
+  background: transparent;
+  z-index: 1;
 }
