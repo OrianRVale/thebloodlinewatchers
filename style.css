@@ -10,14 +10,6 @@ body {
   overflow-x: hidden;
 }
 
-canvas {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 0;
-  pointer-events: none;
-}
-
 .container {
   text-align: center;
   flex: 1;
@@ -53,6 +45,20 @@ h1.glow {
   font-family: 'Courier New', monospace;
   color: #bbb;
   margin-top: 1rem;
+}
+
+canvas {
+  margin-top: 30px;
+  width: 120px;
+  height: 100px;
+  pointer-events: none;
+  opacity: 0.12;
+  animation: flicker 2s infinite ease-in-out;
+}
+
+@keyframes flicker {
+  0%, 100% { opacity: 0.12; transform: scale(1); }
+  50% { opacity: 0.3; transform: scale(1.03); }
 }
 
 footer {
