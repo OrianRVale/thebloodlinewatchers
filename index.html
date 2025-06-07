@@ -3,121 +3,43 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>The Bloodline Watchers</title>
-  <link rel="stylesheet" href="style.css" />
-
-  <!-- ✅ Google Site Verification -->
-  <meta name="google-site-verification" content="googlec68964003bb03513" />
-
-  <!-- SEO META TAGS -->
-  <meta name="author" content="Orion R. Vale">
-  <meta name="description" content="The Bloodline Watchers by Orion R. Vale – A mythic dark fantasy novel weaving celestial glyphs, elemental awakenings, and ancient prophecy.">
-  <meta name="keywords" content="Orion R. Vale, The Bloodline Watchers, dark fantasy author, prophecy fiction, glyph awakening, ARG novel, elemental magic book, chosen one fantasy, new fantasy author 2025">
   <meta name="robots" content="index, follow">
-  <meta property="og:title" content="The Bloodline Watchers by Orion R. Vale">
-  <meta property="og:description" content="Enter the myth. Follow the glyphs. Discover the chosen one.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://orianrvale.github.io/thebloodlinewatchers">
-  <meta property="og:site_name" content="The Bloodline Watchers">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="The Bloodline Watchers">
-  <meta name="twitter:description" content="A powerful new fantasy universe by Orion R. Vale. Follow the glyphs. The veil is thinning.">
-
-  <!-- SCHEMA.ORG JSON-LD -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Book",
-    "name": "The Bloodline Watchers",
-    "author": {
-      "@type": "Person",
-      "name": "Orion R. Vale"
-    },
-    "description": "A mythic dark fantasy novel that begins with celestial glyphs and whispers from a forgotten lineage. The chosen one has returned.",
-    "genre": "Dark Fantasy, Occult Fiction, Mythic Realism",
-    "publisher": "Orion Vale Fiction",
-    "inLanguage": "English",
-    "url": "https://orianrvale.github.io/thebloodlinewatchers",
-    "mainEntityOfPage": {
-      "@type": "WebPage",
-      "@id": "https://orianrvale.github.io/thebloodlinewatchers"
+  <meta name="author" content="Orion R. Vale">
+  <meta name="description" content="Early Bloodline Watchers ARG content and prophecy archive. Dive into hidden truths, glyphs, and cosmic whispers.">
+  <title>Relic Archive · The Bloodline Watchers</title>
+  <style>
+    body {
+      background-color: #000;
+      color: #f5f5f5;
+      font-family: 'Cinzel', serif;
+      text-align: center;
+      padding-top: 20%;
+      margin: 0;
     }
-  }
-  </script>
+    h1 {
+      font-size: 2rem;
+      color: #ffeeb3;
+      text-shadow: 0 0 10px rgba(255, 238, 179, 0.4);
+    }
+    p {
+      margin: 1rem 0;
+      font-size: 1.1rem;
+    }
+    a {
+      color: #d6c88e;
+      font-size: 1.2rem;
+      text-decoration: none;
+      font-weight: bold;
+      text-shadow: 0 0 6px rgba(255, 245, 204, 0.6);
+    }
+    a:hover {
+      opacity: 0.7;
+    }
+  </style>
 </head>
-
 <body>
-  <div class="background"></div>
-
-  <div class="container">
-    <h1 class="main-title angelic-glow">The Bloodline Watchers</h1>
-
-    <div class="rune-field">
-      <div class="rune-message" id="runeText"></div>
-    </div>
-
-    <footer class="footer">
-      © Orion R. Vale. Chapter One reveal preview coming in August 2025.
-    </footer>
-  </div>
-
-  <script>
-    const phrases = [
-      "Only the marked can hear.",
-      "This was never a story.",
-      "The veil is not what you think.",
-      "They promised silence. They lied.",
-      "The watchers wait in light and shadow."
-    ];
-
-    const runeMap = {
-      A: "ᚨ", B: "ᛒ", C: "ᚲ", D: "ᛞ", E: "ᛖ", F: "ᚠ", G: "ᚷ",
-      H: "ᚺ", I: "ᛁ", J: "ᛃ", K: "ᚲ", L: "ᛚ", M: "ᛗ", N: "ᚾ",
-      O: "ᛟ", P: "ᛈ", Q: "ᛩ", R: "ᚱ", S: "ᛋ", T: "ᛏ", U: "ᚢ",
-      V: "ᚡ", W: "ᚹ", X: "ᛪ", Y: "ᛇ", Z: "ᛉ", ".": ".", " ": " "
-    };
-
-    const runeTextEl = document.getElementById("runeText");
-
-    let phraseIndex = 0;
-
-    function getRune(char) {
-      return runeMap[char.toUpperCase()] || char;
-    }
-
-    function revealNextPhrase() {
-      const phrase = phrases[phraseIndex];
-      runeTextEl.innerHTML = "";
-
-      for (let i = 0; i < phrase.length; i++) {
-        const span = document.createElement("span");
-        const finalChar = phrase[i];
-        const runeChar = getRune(finalChar);
-        span.textContent = runeChar;
-        span.dataset.final = finalChar;
-        runeTextEl.appendChild(span);
-
-        if (finalChar !== " ") {
-          setTimeout(() => rotateToFinal(span), 1800 + Math.random() * 3000);
-        } else {
-          span.style.opacity = 1;
-        }
-      }
-
-      phraseIndex = (phraseIndex + 1) % phrases.length;
-    }
-
-    function rotateToFinal(span) {
-      span.classList.add("flip");
-      setTimeout(() => {
-        span.textContent = span.dataset.final;
-        span.classList.remove("flip");
-        span.style.opacity = 1;
-      }, 600);
-    }
-
-    revealNextPhrase();
-    setInterval(revealNextPhrase, 13000);
-  </script>
+  <h1>🜂 The Archive Remains</h1>
+  <p>This domain preserves the original glyph stream from The Bloodline Watchers ARG.</p>
+  <p><a href="https://orianrvale.github.io">⟵ Return to the Main Portal</a></p>
 </body>
 </html>
