@@ -23,9 +23,22 @@ body {
 .main-title {
   font-size: 3em;
   color: #f5f5f5;
-  text-shadow: 0 0 15px #fff, 0 0 30px #888;
   z-index: 2;
   position: relative;
+}
+
+.pulse-glow {
+  animation: glowPulse 5s infinite ease-in-out;
+  text-shadow: 0 0 10px #fff, 0 0 25px #bbb, 0 0 40px #999;
+}
+
+@keyframes glowPulse {
+  0%, 100% {
+    text-shadow: 0 0 10px #fff, 0 0 25px #bbb, 0 0 40px #999;
+  }
+  50% {
+    text-shadow: 0 0 20px #fff, 0 0 35px #eee, 0 0 60px #ccc;
+  }
 }
 
 .triangle-overlay {
@@ -39,21 +52,22 @@ body {
   clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
   opacity: 0;
   z-index: 1;
-  animation: triangleFlicker 18s infinite;
+  animation: triangleBreakthrough 20s infinite ease-in-out;
   box-shadow: 0 0 20px rgba(255, 255, 255, 0.05);
 }
 
-@keyframes triangleFlicker {
+@keyframes triangleBreakthrough {
   0%, 80%, 100% {
     opacity: 0;
     box-shadow: 0 0 0 transparent;
   }
   81% {
-    opacity: 0.05;
-    box-shadow: 0 0 10px #fff5, 0 0 30px #fffa, 0 0 60px #fff2;
+    opacity: 0.1;
+    box-shadow: 0 0 20px #ffffff30, 0 0 50px #ffffff10;
   }
   82% {
-    opacity: 0.15;
+    opacity: 0.25;
+    box-shadow: 0 0 25px #ffffff60, 0 0 70px #ffffff30;
   }
   83%, 90% {
     opacity: 0;
@@ -72,6 +86,7 @@ body {
   display: inline-block;
   min-width: 0.6em;
   text-shadow: 0 0 10px #888;
+  opacity: 0;
 }
 
 .footer {
