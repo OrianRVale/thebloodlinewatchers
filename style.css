@@ -22,51 +22,86 @@ body {
 
 .main-title {
   font-size: 3em;
-  color: #f5f5f5;
   z-index: 2;
   position: relative;
 }
 
-.ghost-glow {
-  animation: ghostPulse 6s infinite ease-in-out;
-  text-shadow: 0 0 15px #ffffffaa, 0 0 30px #ffddaa, 0 0 60px #ffcc66;
+.angelic-glow {
+  animation: angelGlow 5s infinite ease-in-out;
+  color: #ffffff;
+  text-shadow: 0 0 15px #ffffffbb, 0 0 30px #ffefcc, 0 0 60px #fddc88;
 }
 
-@keyframes ghostPulse {
+@keyframes angelGlow {
   0%, 100% {
-    text-shadow: 0 0 15px #ffffffaa, 0 0 30px #ffddaa, 0 0 60px #ffcc66;
+    text-shadow: 0 0 15px #ffffffbb, 0 0 30px #ffefcc, 0 0 60px #fddc88;
   }
   50% {
-    text-shadow: 0 0 25px #ffffffdd, 0 0 40px #ffccaa, 0 0 80px #ffee99;
+    text-shadow: 0 0 25px #ffffffee, 0 0 40px #ffeecc, 0 0 80px #ffdd99;
   }
 }
 
 .rune-field {
   margin-top: 50px;
-  padding: 40px 0;
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8), transparent);
+  padding: 50px 0;
   position: relative;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.85), transparent);
+  overflow: hidden;
 }
 
-.triangle-underlay {
+.triangle-logo {
   position: absolute;
-  top: 20px;
+  top: 10px;
   left: 50%;
   transform: translateX(-50%);
   width: 120px;
   height: 104px;
-  background: transparent;
   clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-  opacity: 0;
+  background: transparent;
   z-index: 0;
   pointer-events: none;
-  transition: opacity 2s ease-in-out;
-  box-shadow: 0 0 30px rgba(255, 255, 255, 0.05);
 }
 
-.triangle-underlay.active {
-  opacity: 0.2;
-  box-shadow: 0 0 25px #ffffff33, 0 0 60px #ffffff22;
+.triangle-logo::before,
+.triangle-logo::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  clip-path: inherit;
+  background: rgba(255, 255, 255, 0.03);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+  opacity: 0;
+  animation: triangleSpark 12s infinite ease-in-out;
+}
+
+.triangle-logo::after {
+  animation-delay: 2s;
+  background: rgba(255, 255, 255, 0.06);
+  box-shadow: 0 0 40px rgba(255, 255, 255, 0.15);
+}
+
+@keyframes triangleSpark {
+  0%, 70%, 100% {
+    opacity: 0;
+    transform: scale(1);
+  }
+  72% {
+    opacity: 0.1;
+    transform: scale(1.02);
+  }
+  74% {
+    opacity: 0.25;
+    transform: scale(1);
+  }
+  76% {
+    opacity: 0.1;
+    transform: scale(1.01);
+  }
+  78%, 90% {
+    opacity: 0;
+    transform: scale(1);
+  }
 }
 
 .rune-message {
@@ -80,8 +115,13 @@ body {
 .rune-message span {
   display: inline-block;
   min-width: 0.6em;
-  text-shadow: 0 0 10px #888;
-  opacity: 0;
+  opacity: 0.8;
+  transition: all 0.8s ease-in-out;
+  transform-origin: center;
+}
+
+.rune-message span.flip {
+  transform: rotateY(180deg);
 }
 
 .footer {
