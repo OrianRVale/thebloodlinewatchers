@@ -1,4 +1,4 @@
-// RUNE FLIP
+// Rune phrases and translations
 const runeMap = {
   'ᚠ': 'T',
   'ᚢ': 'H',
@@ -13,44 +13,29 @@ const runeMap = {
   'ᚺ': ' '
 };
 
-function decodeRunes(runes) {
-  return runes.split('').map(char => runeMap[char] || char).join('');
-}
+const phrases = [
+  "ᚠᚢᚦᚨᚱᚲ ᛊᛏᚨᚦᚱ ᛒᛚᚨᚺ",  // THE CHOSEN ONE
+  "ᚠᚢᚦᚨᚱᚲ ᛏᚨᛁᚾ ᚱᚢᚾᛖ",      // THAIN RUNE (mystery filler)
+  "ᚠᚢᚦᚨᚱᚲ ᛋᚺᚨᛞᛟᚹ",          // SHADOW
+  "ᚠᚢᚦᚨᚱᚲ ᛊᛏᚨᚦᚱ ᛗᚨᚲᛁᚲ"      // STAR MAGIC
+];
+
+const englishMap = {
+  "ᚠᚢᚦᚨᚱᚲ ᛊᛏᚨᚦᚱ ᛒᛚᚨᚺ": "THE CHOSEN ONE",
+  "ᚠᚢᚦᚨᚱᚲ ᛏᚨᛁᚾ ᚱᚢᚾᛖ": "THE ANCIENT RUNE",
+  "ᚠᚢᚦᚨᚱᚲ ᛋᚺᚨᛞᛟᚹ": "SHADOW RISES",
+  "ᚠᚢᚦᚨᚱᚲ ᛊᛏᚨᚦᚱ ᛗᚨᚲᛁᚲ": "STARCHILD AWAKENS"
+};
 
 const runeElement = document.getElementById('runePhrase');
+let index = 0;
 let showingRunes = true;
 
 setInterval(() => {
+  const rune = phrases[index];
   runeElement.textContent = showingRunes
-    ? decodeRunes(runeElement.textContent)
-    : 'ᚠᚢᚦᚨᚱᚲ ᛊᛏᚨᚦᚱ ᛒᛚᚨᚺ';
+    ? englishMap[rune]
+    : rune;
   showingRunes = !showingRunes;
-}, 4000);
-
-// TRIANGLE EFFECT
-const canvas = document.getElementById("triangleCanvas");
-const ctx = canvas.getContext("2d");
-
-function resizeCanvas() {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-}
-resizeCanvas();
-window.addEventListener("resize", resizeCanvas);
-
-function drawTriangle() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  ctx.beginPath();
-  ctx.moveTo(canvas.width / 2, canvas.height / 2 - 60);
-  ctx.lineTo(canvas.width / 2 - 50, canvas.height / 2 + 40);
-  ctx.lineTo(canvas.width / 2 + 50, canvas.height / 2 + 40);
-  ctx.closePath();
-
-  ctx.strokeStyle = `rgba(255, 255, 255, ${0.2 + 0.3 * Math.random()})`;
-  ctx.lineWidth = 2;
-  ctx.shadowColor = "#ffd700";
-  ctx.shadowBlur = Math.random() * 15;
-  ctx.stroke();
-}
-
-setInterval(drawTriangle, 2500);
+  if (showingRunes) index = (index + 1) % phrases.length;
+}, 5000);
